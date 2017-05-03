@@ -22,7 +22,7 @@ export function requestCampaigns(args = {}) {
       // doRequest is a sample which resolves promise in 20ms. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
       const doRequest = new Promise((resolve2, reject2) =>  {
-          fetch('http://034795a3.ngrok.io/api/campaigns').then(function(response) {
+          fetch('http://lowcost-env.ap4kzccr7q.us-west-1.elasticbeanstalk.com/api/campaigns').then(function(response) {
               return resolve2(response.json());
           })
       });
