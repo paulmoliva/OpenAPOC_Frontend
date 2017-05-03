@@ -65,7 +65,8 @@
   "scripts": {
     "start": "node ./tools/server.js",
     "build": "node ./tools/build.js",
-    "test": "node ./tools/run_test.js"
+    "test": "node ./tools/run_test.js",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "axios": "^0.15.3",
