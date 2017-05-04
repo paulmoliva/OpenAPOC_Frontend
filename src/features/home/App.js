@@ -17,7 +17,32 @@ export default class App extends Component {
     children: 'No content.',
   };
 
+    componentDidMount(){
+        window.fbAsyncInit = () => {
+            FB.init({
+                appId      : '300312007074548',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+            FB.getLoginStatus( (response) => {
+                if(response.status === 'connected') {
+                    FB.api('/me', (resp) => {
+                        this.props.actions.loginUser(resp);
+                    });
+                }
+            });
+        };
 
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    }
 
   render() {
     return (
