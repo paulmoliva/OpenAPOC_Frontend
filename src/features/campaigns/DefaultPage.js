@@ -85,7 +85,7 @@ export class DefaultPage extends Component {
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
-          paginationSize: 3,  // the pagination bar size.
+          paginationSize: 9,  // the pagination bar size.
           prePage: 'Prev', // Previous page button text
           nextPage: 'Next', // Next page button text
           firstPage: 'First', // First page button text
@@ -95,7 +95,7 @@ export class DefaultPage extends Component {
           firstPageTitle: 'Go to first', // First page button title
           lastPageTitle: 'Go to Last', // Last page button title
           paginationShowsTotal: false,  // Accept bool or function
-          paginationPosition: 'top'  // default is bottom, top and both is all available
+          paginationPosition: 'both'  // default is bottom, top and both is all available
           // hideSizePerPage: true > You can hide the dropdown for sizePerPage
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
