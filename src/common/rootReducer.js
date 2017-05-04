@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import homeReducer from '../features/home/redux/reducer';
 import commonReducer from '../features/common/redux/reducer';
 import campaignsReducer from '../features/campaigns/redux/reducer';
+import usersReducer from '../features/users/redux/reducer';
 
 // NOTE 1: DO NOT CHANGE the 'reducerMap' name and the declaration pattern.
 // This is used for Rekit cmds to register new features, remove features, etc.
@@ -15,6 +16,7 @@ const reducerMap = {
   home: homeReducer,
   common: commonReducer,
   campaigns: campaignsReducer,
+  users: usersReducer,
 };
 
 export default combineReducers(reducerMap);
