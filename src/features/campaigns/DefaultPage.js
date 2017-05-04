@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import $ from 'jquery';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
@@ -16,9 +17,65 @@ export class DefaultPage extends Component {
     this.props.actions.requestCampaigns();
   }
 
+  cellColor(cell, that){
+    let color;
+    if(cell === 'l'){
+        color = 'rgba(0,0,250, 0.3)';
+    } else if (cell === 'r'){
+        color = 'rgba(250,0,0, 0.3';
+    } else {
+        color = 'rgba(77,77,77, 0.3'
+    }
+    let cellMap = {};
+    cellMap[that.index] = {
+        "index": that.index,
+        "color": color
+    };
+    that.style = {
+        backgroundColor: color,
+        minWidth: '470px',
+        minHeight: '38px',
+        maxHeight: '76px',
+        marginLeft: '-470px',
+        position: 'absolute'
+    };
+    // this.setState({
+    //     cellMap: cellMap
+    // });
+      return cell;
+  }
+
+  cellID(theCell, that){
+      that.style = {
+          backgroundColor: 'transparent',
+          zIndex: theCell,
+          minWidth: '470px',
+          minHeight: '38px',
+          maxHeight: '76px',
+          marginRight: '-470px',
+          position: 'absolute',
+          content: `${theCell}`
+      };
+      let that2 = this;
+      that.onClick = (function(){
+          setTimeout(() => {
+              let cell = $(`td[style*="z-index: ${theCell}"]`)
+              $.each(cell, (i, el) => {
+                  if(el.style['z-index'] === theCell.toString()){
+                      let row = $(el).parent();
+                      let theHtml = row[0].innerHTML;
+                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 470px;' id="${theCell}-link" href="/campaigns/${theCell}">${theHtml}</a>`
+                  }
+              })
+          }, 1000)
+      })();
+      that.title = theCell;
+      return `${theCell}`;
+  }
+
   render() {
       const options = {
-          page: 2,  // which page you want to show as default
+          page: 1,  // which page you want to show as default
           sizePerPageList: [ {
               text: '50', value: 50
           }, {
@@ -45,11 +102,17 @@ export class DefaultPage extends Component {
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
     if(this.props.campaigns.campaigns.length){
+      let that = this;
       return (
           <BootstrapTable data={this.props.campaigns.campaigns} striped={true} hover={true} pagination={true} options={options}>
-            <TableHeaderColumn dataField="id" isKey={true} dataAlign="center" dataSort={true}>Campaign ID</TableHeaderColumn>
-            <TableHeaderColumn dataField="name" dataSort={true}>Campaign Name</TableHeaderColumn>
-            <TableHeaderColumn dataField="leans" dataSort={true}>Campaign Leans</TableHeaderColumn>
+            <TableHeaderColumn dataField="id" isKey={true} dataFormat={function(cell){
+                that.cellID(cell, this);
+            }} dataAlign="center" dataSort={true}>Campaign ID</TableHeaderColumn>
+              <TableHeaderColumn dataField="name" dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
+            <TableHeaderColumn dataField="leans" dataFormat={function(cell){
+                that.cellColor(cell, this);
+            }}
+            dataSort={true}>Campaign Leans</TableHeaderColumn>
           </BootstrapTable>
       )
     } else
