@@ -1,8 +1,10 @@
 import initialState from './initialState';
 import { reducer as requestCampaignsReducer } from './requestCampaigns';
+import { reducer as requestACampaignReducer } from './requestACampaign';
 
 const reducers = [
   requestCampaignsReducer,
+  requestACampaignReducer,
 ];
 
 export default function reducer(state = initialState, action) {

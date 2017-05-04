@@ -6,9 +6,11 @@
 
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 const initialState = {
+  campaigns: [],
   requestCampaignsPending: false,
   requestCampaignsError: null,
-  campaigns: []
+  requestACampaignPending: false,
+  requestACampaignError: null,
 };
 
 export default initialState;

@@ -1,5 +1,6 @@
 import {
   DefaultPage,
+  CampaignPage,
 } from './';
 
 export default {
@@ -7,5 +8,6 @@ export default {
   name: 'Campaigns',
   childRoutes: [
     { path: 'default-page', name: 'Default page', component: DefaultPage, isIndex: true },
+    { path: ':campaignID', name: 'Campaign page', component: CampaignPage },
   ],
 };
