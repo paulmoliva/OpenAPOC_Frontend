@@ -5,6 +5,7 @@ import * as actions from './redux/actions';
 import $ from 'jquery';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { browserHistory } from 'react-router'
 
 
 export class DefaultPage extends Component {
@@ -15,6 +16,7 @@ export class DefaultPage extends Component {
 
   componentDidMount(){
     this.props.actions.requestCampaigns();
+    window.theRouter = browserHistory;
   }
 
   cellColor(cell, that){
@@ -64,7 +66,7 @@ export class DefaultPage extends Component {
                   if(el.style['z-index'] === theCell.toString()){
                       let row = $(el).parent();
                       let theHtml = row[0].innerHTML;
-                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 470px;' id="${theCell}-link" href="/campaigns/${theCell}">${theHtml}</a>`
+                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 470px;' id="${theCell}-link" onclick="window.theRouter.push('/campaigns/${theCell}')">${theHtml}</a>`
                   }
               })
           }, 1000)
@@ -75,7 +77,7 @@ export class DefaultPage extends Component {
 
   render() {
       const options = {
-          page: 1,  // which page you want to show as default
+          page: 0,  // which page you want to show as default
           sizePerPageList: [ {
               text: '50', value: 50
           }, {

@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import $ from 'jquery';
+import { browserHistory } from 'react-router'
+
 
 export class CampaignPage extends Component {
   static propTypes = {
@@ -12,6 +14,7 @@ export class CampaignPage extends Component {
 
   componentDidMount(){
     this.props.actions.requestACampaign({campaignID: this.props.params.campaignID})
+    window.theRouter = browserHistory;
   }
 
     cellID(theCell, that){
@@ -27,7 +30,7 @@ export class CampaignPage extends Component {
                         $(el).remove();
                         $(`th[data-field="contributor_id"]`).remove()
                         let theHtml = row[0].innerHTML;
-                        row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 300px;' id="${theCell}-link" href="/contributors/${theCell}">${theHtml}</a>`
+                        row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 300px;' id="${theCell}-link" onclick="window.theRouter.push('/contributors/${theCell}')">${theHtml}</a>`
                     }
                 })
             }, 250)
@@ -38,7 +41,7 @@ export class CampaignPage extends Component {
 
   render() {
       const options = {
-          page: 1,  // which page you want to show as default
+          page: 0,  // which page you want to show as default
           sizePerPageList: [ {
               text: '50', value: 50
           }, {
@@ -71,7 +74,7 @@ export class CampaignPage extends Component {
             // rowIdx is index of row
             // colIdx is index of column
 
-            let color;
+            let color = '';
             if(row.contributor_score > 1){
                 color = 'blue';
             } else if (row.contributor_score < -1){
@@ -108,7 +111,7 @@ export class CampaignPage extends Component {
                     that.cellID(cell, this);
                 }}></TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
-                <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="Amount" dataSort={true}>Amount</TableHeaderColumn>
+                <TableHeaderColumn columnClassName={columnClassNameFormat} dataFormat={cell => parseFloat(cell)} dataField="Amount" dataSort={true}>Amount</TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="contributor_score" dataSort={true}>Leans</TableHeaderColumn>
               </BootstrapTable>
             </div>
