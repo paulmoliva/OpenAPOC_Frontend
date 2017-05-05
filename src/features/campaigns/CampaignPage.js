@@ -13,8 +13,14 @@ export class CampaignPage extends Component {
   };
 
   componentDidMount(){
+    debugger;
     this.props.actions.requestACampaign({campaignID: this.props.params.campaignID})
     window.theRouter = browserHistory;
+  }
+
+  componentWillUnmount(){
+      debugger;
+      this.props.actions.clearCampaigns();
   }
 
   render() {
@@ -47,7 +53,7 @@ export class CampaignPage extends Component {
           // withFirstAndLast: false > Hide the going to First and Last page button
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
-    if (this.props.campaigns.campaigns.donors.length){
+    if (!this.props.campaigns.campaigns.loading){
         function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
             // fieldValue is column value
             // row is whole row object

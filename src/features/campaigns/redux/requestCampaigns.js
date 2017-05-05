@@ -62,14 +62,16 @@ export function reducer(state, action) {
     case CAMPAIGNS_REQUEST_CAMPAIGNS_BEGIN:
       // Just after a request is sent
       return {
+        campaigns: {donors: [], loading: true,},
         ...state,
         requestCampaignsPending: true,
         requestCampaignsError: null,
       };
 
-    case CAMPAIGNS_REQUEST_CAMPAIGNS_SUCCESS:
+      case CAMPAIGNS_REQUEST_CAMPAIGNS_SUCCESS:
       // The request is success
-      let newCampaigns = action.data;
+      let newCampaigns = { campaigns: {loading: false, donors: action.data}};
+      debugger;
       return {
         ...state,
         campaigns: newCampaigns,
