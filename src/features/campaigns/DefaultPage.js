@@ -97,7 +97,9 @@ export class DefaultPage extends Component {
           firstPageTitle: 'Go to first', // First page button title
           lastPageTitle: 'Go to Last', // Last page button title
           paginationShowsTotal: false,  // Accept bool or function
-          paginationPosition: 'both'  // default is bottom, top and both is all available
+          paginationPosition: 'both',  // default is bottom, top and both is all available
+          defaultSortName: 'name',  // default sort column name
+          defaultSortOrder: 'asc',  // default sort order
           // hideSizePerPage: true > You can hide the dropdown for sizePerPage
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
@@ -122,7 +124,7 @@ export class DefaultPage extends Component {
             <TableHeaderColumn dataField="id" isKey={true} dataFormat={function(cell){
                 that.cellID(cell, this);
             }} dataAlign="center" dataSort={true}>Campaign ID</TableHeaderColumn>
-              <TableHeaderColumn dataField="name" columnClassName={columnClassNameFormat} dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
+            <TableHeaderColumn dataField="name" columnClassName={columnClassNameFormat} dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
             <TableHeaderColumn dataField="leans" dataFormat={function(cell){
                 that.cellColor(cell, this);
             }}
@@ -132,7 +134,9 @@ export class DefaultPage extends Component {
     } else
     return (
       <div className="campaigns-default-page">
-        campaigns
+          <p>Loading.</p>
+          <img src="http://i.imgur.com/XLJxE8S.gif" />
+          <p>Please do not read this text.</p>
       </div>
     );
   }

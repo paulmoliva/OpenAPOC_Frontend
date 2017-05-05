@@ -61,7 +61,9 @@ export class CampaignPage extends Component {
           firstPageTitle: 'Go to first', // First page button title
           lastPageTitle: 'Go to Last', // Last page button title
           paginationShowsTotal: false,  // Accept bool or function
-          paginationPosition: 'both'  // default is bottom, top and both is all available
+          paginationPosition: 'both',  // default is bottom, top and both is all available
+          defaultSortName: 'total_amount',  // default sort column name
+          defaultSortOrder: 'desc'  // default sort order
           // hideSizePerPage: true > You can hide the dropdown for sizePerPage
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
@@ -111,7 +113,7 @@ export class CampaignPage extends Component {
                     that.cellID(cell, this);
                 }}></TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
-                <TableHeaderColumn columnClassName={columnClassNameFormat} dataFormat={cell => parseFloat(cell)} dataField="Amount" dataSort={true}>Amount</TableHeaderColumn>
+                <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="total_amount" dataSort={true}>Amount</TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="contributor_score" dataSort={true}>Leans</TableHeaderColumn>
               </BootstrapTable>
             </div>
@@ -119,7 +121,9 @@ export class CampaignPage extends Component {
     } else {
         return (
             <div className="campaigns-campaign-page">
-
+                <p>Loading.</p>
+                <img src="http://i.imgur.com/XLJxE8S.gif" />
+                <p>Please do not read this text.</p>
             </div>
         );
     }
