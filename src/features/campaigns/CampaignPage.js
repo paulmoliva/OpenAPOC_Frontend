@@ -87,7 +87,7 @@ export class CampaignPage extends Component {
             let add = '';
             if (fieldValue === row.full_name) {
                 add = ' three link'
-            } else if (fieldValue === row.Amount){
+            } else if (fieldValue === row.total_amount){
                 add = ' three'
             } else if (fieldValue === row.contributor_score) {
                 add = ' three'
@@ -112,9 +112,32 @@ export class CampaignPage extends Component {
                 <TableHeaderColumn dataField="contributor_id" className='zero' isKey={true} dataFormat={function(cell){
                     that.cellID(cell, this);
                 }}></TableHeaderColumn>
-                <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
-                <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="total_amount" dataSort={true}>Amount</TableHeaderColumn>
-                <TableHeaderColumn columnClassName={columnClassNameFormat} dataField="contributor_score" dataSort={true}>Leans</TableHeaderColumn>
+                <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
+                <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="Report_Year" dataSort={true}>Year</TableHeaderColumn>
+                <TableHeaderColumn columnClassName={columnClassNameFormat}
+                   dataField="total_amount"
+                   dataSort={true}
+                   dataFormat={cell => cell.toString().trim()}
+                   filter={ {
+                       type: 'NumberFilter',
+                       delay: 1000,
+                       numberComparators: [ '=', '>', '<=' ]
+                   }}
+                >
+                   Amount
+               </TableHeaderColumn>
+                <TableHeaderColumn
+                    columnClassName={columnClassNameFormat}
+                    dataField="contributor_score"
+                    dataSort={true}
+                    filter={ {
+                        type: 'NumberFilter',
+                        delay: 1000,
+                        numberComparators: [ '=', '>', '<=' ]
+                    }}
+                >
+                    Leans
+                </TableHeaderColumn>
               </BootstrapTable>
             </div>
         );
