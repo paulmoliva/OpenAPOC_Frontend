@@ -22,6 +22,7 @@ export class DefaultPage extends Component {
   cellID(theCell, that){
       that.style = {
           zIndex: theCell,
+          maxWidth: '275px'
       };
       let that2 = this;
       that.onClick = (function(){
@@ -80,6 +81,8 @@ export class DefaultPage extends Component {
             let name;
             if (fieldValue === row.name) {
                 name = 'link'
+            } else if (colIdx === 0){
+                name = 'small';
             } else {
                 name = ''
             }
@@ -102,7 +105,7 @@ export class DefaultPage extends Component {
               pagination={true}
               options={options}
               headerStyle={ { width: '900px' } }
-              bodyStyle={ { width: '900px' } }
+              bodyStyle={ { width: '850px', marginLeft: '25px' } }
           >
             <TableHeaderColumn dataField="id" isKey={true} dataFormat={function(cell){
                 that.cellID(cell, this);

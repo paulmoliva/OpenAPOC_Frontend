@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import $ from 'jquery';
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 
 
 export class CampaignPage extends Component {
@@ -16,28 +16,6 @@ export class CampaignPage extends Component {
     this.props.actions.requestACampaign({campaignID: this.props.params.campaignID})
     window.theRouter = browserHistory;
   }
-
-    cellID(theCell, that){
-        that.style = {
-            zIndex: theCell
-        };
-        that.onClick = (function(){
-            setTimeout(() => {
-                let cell = $(`td[style*="z-index: ${theCell}"]`)
-                $.each(cell, (i, el) => {
-                    if(el.style['z-index'] === theCell.toString()){
-                        let row = $(el).parent();
-                        $(el).remove();
-                        $(`th[data-field="contributor_id"]`).remove()
-                        let theHtml = row[0].innerHTML;
-                        row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 300px; cursor: pointer;' id="${theCell}-link" onclick="window.theRouter.push('/contributors/${theCell}')">${theHtml}</a>`
-                    }
-                })
-            }, 250)
-        })();
-        that.title = theCell;
-        return `${theCell}`;
-    }
 
   render() {
       const options = {
@@ -108,11 +86,11 @@ export class CampaignPage extends Component {
                   hover={true}
                   pagination={true}
                   options={options}
-              >
-                <TableHeaderColumn dataField="contributor_id" className='zero' isKey={true} dataFormat={function(cell){
-                    that.cellID(cell, this);
-                }}></TableHeaderColumn>
-                <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
+              exportCSV>
+                <TableHeaderColumn dataField="contributor_id" className='zero' isKey={true} ></TableHeaderColumn>
+                <TableHeaderColumn
+                    dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
+                    filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
                 <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="Report_Year" dataSort={true}>Year</TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat}
                    dataField="total_amount"
