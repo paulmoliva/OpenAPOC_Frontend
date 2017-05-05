@@ -25,7 +25,7 @@ export class CampaignPage extends Component {
           }, {
               text: '100', value: 100
           }, {
-              text: 'All', value: this.props.campaigns.campaigns.length
+              text: 'All', value: this.props.campaigns.campaigns.donors.length
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages

@@ -5,7 +5,7 @@ import * as actions from './redux/actions';
 import $ from 'jquery';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { browserHistory, Link } from 'react-router'
+import { Link } from 'react-router'
 
 
 export class DefaultPage extends Component {
@@ -16,7 +16,6 @@ export class DefaultPage extends Component {
 
   componentDidMount(){
     this.props.actions.requestCampaigns();
-    window.theRouter = browserHistory;
   }
 
   render() {
@@ -50,20 +49,11 @@ export class DefaultPage extends Component {
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
     if(this.props.campaigns.campaigns.length){
-      let that = this;
         function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
             // fieldValue is column value
             // row is whole row object
             // rowIdx is index of row
             // colIdx is index of column
-            let name;
-            if (fieldValue === row.name) {
-                name = 'link'
-            } else if (fieldValue === row.id) {
-                return ''
-            } else {
-                name = ''
-            }
             let color = '';
             if(row.leans === 'l' ){
                 color = ' blue';
@@ -72,7 +62,7 @@ export class DefaultPage extends Component {
             } else {
                 color = ' grey'
             }
-            return name + color ;
+            return color;
         }
         const leanTypes = {l: 'Left', r: 'Right'};
       return (
@@ -87,7 +77,8 @@ export class DefaultPage extends Component {
             <TableHeaderColumn dataField="id" isKey={true}
                columnClassName={columnClassNameFormat}
               dataAlign="center"
-              dataSort={true}>ID</TableHeaderColumn>
+              dataSort={true}
+              hidden>ID</TableHeaderColumn>
             <TableHeaderColumn
                 dataFormat={function(cell, row){
                     return <Link to={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</Link>

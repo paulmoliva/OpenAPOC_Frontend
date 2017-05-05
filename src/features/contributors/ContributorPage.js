@@ -37,8 +37,8 @@ export class ContributorPage extends Component {
           lastPageTitle: 'Go to Last', // Last page button title
           paginationShowsTotal: false,  // Accept bool or function
           paginationPosition: 'both',  // default is bottom, top and both is all available
-          defaultSortName: 'Name',  // default sort column name
-          defaultSortOrder: 'asc',  // default sort order
+          defaultSortName: 'Report_Year',  // default sort column name
+          defaultSortOrder: 'desc',  // default sort order
           // hideSizePerPage: true > You can hide the dropdown for sizePerPage
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
@@ -83,7 +83,7 @@ export class ContributorPage extends Component {
               <TableHeaderColumn dataField="Result" isKey={true}
                                  columnClassName={columnClassNameFormat}
                                  dataAlign="center"
-                                 dataSort={true}>ID</TableHeaderColumn>
+                                 hidden>ID</TableHeaderColumn>
               <TableHeaderColumn
                   dataFormat={function(cell, row){
                       return <Link to={`/campaigns/${row.campaign_id}`}>{cell.slice(0, 54)}</Link>
