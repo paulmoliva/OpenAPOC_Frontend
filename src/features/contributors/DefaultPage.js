@@ -69,7 +69,6 @@ export class DefaultPage extends Component {
               <TableHeaderColumn dataField="id" isKey={true}
                                  columnClassName={columnClassNameFormat}
                                  dataAlign="center"
-                                 dataSort={true}
                                  hidden>ID</TableHeaderColumn>
               <TableHeaderColumn
                   dataFormat={function(cell, row){
