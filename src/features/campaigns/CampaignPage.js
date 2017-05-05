@@ -92,15 +92,26 @@ export class CampaignPage extends Component {
                     dataFormat={function(cell, row){
                         return cell
                     }}
-                    dataField="contributor_id" isKey={true} >ID</TableHeaderColumn>
+                    dataField="contributor_id" isKey={true}
+                hidden>
+                    ID</TableHeaderColumn>
                 <TableHeaderColumn
                     dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
                     filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
-                <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="Report_Year" dataSort={true}>Year</TableHeaderColumn>
+                <TableHeaderColumn
+                    filter={ { type: 'NumberFilter', delay: 1000, numberComparators: ['=', '>', '<'] } }
+                    columnClassName={columnClassNameFormat}
+                    dataField="Report_Year"
+                    dataSort={true}
+                    dataFormat={cell => {
+                        return cell ? parseInt(cell) : null;
+                    }}
+                >
+                    Year
+                </TableHeaderColumn>
                 <TableHeaderColumn columnClassName={columnClassNameFormat}
                    dataField="total_amount"
                    dataSort={true}
-                   dataFormat={cell => cell.toString().trim()}
                    filter={ {
                        type: 'NumberFilter',
                        delay: 1000,
