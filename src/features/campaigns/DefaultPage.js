@@ -59,8 +59,8 @@ export class DefaultPage extends Component {
             let name;
             if (fieldValue === row.name) {
                 name = 'link'
-            } else if (colIdx === 0){
-                name = 'small';
+            } else if (fieldValue === row.id) {
+                return ''
             } else {
                 name = ''
             }
@@ -72,7 +72,7 @@ export class DefaultPage extends Component {
             } else {
                 color = ' grey'
             }
-            return name + color + ' three';
+            return name + color ;
         }
         const leanTypes = {l: 'Left', r: 'Right'};
       return (
@@ -88,7 +88,7 @@ export class DefaultPage extends Component {
             <TableHeaderColumn dataField="id" isKey={true}
                columnClassName={columnClassNameFormat}
               dataAlign="center"
-              dataSort={true}>Campaign ID</TableHeaderColumn>
+              dataSort={true}>ID</TableHeaderColumn>
             <TableHeaderColumn
                 dataFormat={function(cell, row){
                     return <Link to={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</Link>
@@ -98,6 +98,13 @@ export class DefaultPage extends Component {
                 columnClassName={columnClassNameFormat}
                 filter={ { type: 'SelectFilter', options: leanTypes }}
                 dataField="leans"
+                dataFormat={cell => {
+                    if (cell === 'l') {
+                        return 'Left'
+                    } else if (cell === 'r') {
+                        return 'Right'
+                    } else return '-'
+                }}
             dataSort={true}>Campaign Leans</TableHeaderColumn>
           </BootstrapTable>
       )

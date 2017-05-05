@@ -29,7 +29,7 @@ export class CampaignPage extends Component {
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
-          paginationSize: 9,  // the pagination bar size.
+          paginationSize: 19,  // the pagination bar size.
           prePage: 'Prev', // Previous page button text
           nextPage: 'Next', // Next page button text
           firstPage: 'First', // First page button text
@@ -81,8 +81,8 @@ export class CampaignPage extends Component {
             <div className="campaigns-campaign-page">
               <h1>{this.props.campaigns.campaigns.donors[0].Name}</h1>
               <BootstrapTable
-                  headerStyle={ { width: '900px' } }
-                  bodyStyle={ { width: '900px' } }
+                  headerStyle={ { width: '1100px' } }
+                  bodyStyle={ { width: '1100px' } }
                   data={this.props.campaigns.campaigns.donors}
                   striped={true}
                   hover={true}
@@ -91,9 +91,9 @@ export class CampaignPage extends Component {
               exportCSV>
                 <TableHeaderColumn
                     dataFormat={function(cell, row){
-                        return ''
+                        return cell
                     }}
-                    dataField="contributor_id" className='zero' isKey={true} ></TableHeaderColumn>
+                    dataField="contributor_id" isKey={true} >ID</TableHeaderColumn>
                 <TableHeaderColumn
                     dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
                     filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
