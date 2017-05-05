@@ -78,7 +78,6 @@ export class DefaultPage extends Component {
       return (
           <BootstrapTable
               data={this.props.campaigns.campaigns}
-              striped={true}
               hover={true}
               pagination={true}
               options={options}

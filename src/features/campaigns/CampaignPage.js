@@ -47,7 +47,7 @@ export class CampaignPage extends Component {
           // withFirstAndLast: false > Hide the going to First and Last page button
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
-    if (this.props.campaigns.campaigns.donors){
+    if (this.props.campaigns.campaigns.donors.length){
         function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
             // fieldValue is column value
             // row is whole row object
@@ -84,7 +84,6 @@ export class CampaignPage extends Component {
                   headerStyle={ { width: '1100px' } }
                   bodyStyle={ { width: '1100px' } }
                   data={this.props.campaigns.campaigns.donors}
-                  striped={true}
                   hover={true}
                   pagination={true}
                   options={options}

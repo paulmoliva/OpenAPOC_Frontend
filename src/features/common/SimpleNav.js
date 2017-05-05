@@ -39,6 +39,16 @@ export default class SimpleNav extends PureComponent {
   render() {
     return (
       <div className="common-simple-nav">
+        <button
+            className="btn"
+            style={{
+              position: 'fixed',
+              top: '10px',
+              left: '268px',
+              fontSize: '15px',
+              backgroundColor: 'rgba(0,0,0,0.13)'
+            }}
+            onClick={() => window.history.back()}>←</button>
         <div className="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
         {this.renderLinks(this.props.routes[0].childRoutes, '')}
       </div>
