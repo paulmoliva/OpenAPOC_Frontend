@@ -5,7 +5,7 @@ import * as actions from './redux/actions';
 import $ from 'jquery';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 
 
 export class DefaultPage extends Component {
@@ -17,28 +17,6 @@ export class DefaultPage extends Component {
   componentDidMount(){
     this.props.actions.requestCampaigns();
     window.theRouter = browserHistory;
-  }
-
-  cellID(theCell, that){
-      that.style = {
-          zIndex: theCell,
-          maxWidth: '275px'
-      };
-      let that2 = this;
-      that.onClick = (function(){
-          setTimeout(() => {
-              let cell = $(`td[style*="z-index: ${theCell}"]`)
-              $.each(cell, (i, el) => {
-                  if(el.style['z-index'] === theCell.toString()){
-                      let row = $(el).parent();
-                      let theHtml = row[0].innerHTML;
-                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 323px; left: 551px; cursor: pointer;' id="${theCell}-link" onclick="window.theRouter.push('/campaigns/${theCell}')">${theHtml}</a>`
-                  }
-              })
-          }, 1000)
-      })();
-      that.title = theCell;
-      return `${theCell}`;
   }
 
   render() {
@@ -107,17 +85,18 @@ export class DefaultPage extends Component {
               headerStyle={ { width: '900px' } }
               bodyStyle={ { width: '850px', marginLeft: '25px' } }
           >
-            <TableHeaderColumn dataField="id" isKey={true} dataFormat={function(cell){
-                that.cellID(cell, this);
-                return cell;
-            }}
+            <TableHeaderColumn dataField="id" isKey={true}
                columnClassName={columnClassNameFormat}
               dataAlign="center"
               dataSort={true}>Campaign ID</TableHeaderColumn>
-            <TableHeaderColumn filter={ { type: 'TextFilter', delay: 1000 } } dataField="name" columnClassName={columnClassNameFormat} dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
+            <TableHeaderColumn
+                dataFormat={function(cell, row){
+                    return <Link to={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</Link>
+                }}
+                filter={ { type: 'TextFilter', delay: 1000 } } dataField="name" columnClassName={columnClassNameFormat} dataSort={true}>Campaign Name</TableHeaderColumn>
             <TableHeaderColumn
                 columnClassName={columnClassNameFormat}
-                filter={ { type: 'SelectFilter', options: leanTypes, defaultValue: 'l' } }
+                filter={ { type: 'SelectFilter', options: leanTypes }}
                 dataField="leans"
             dataSort={true}>Campaign Leans</TableHeaderColumn>
           </BootstrapTable>

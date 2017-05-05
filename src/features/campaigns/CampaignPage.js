@@ -53,7 +53,9 @@ export class CampaignPage extends Component {
             // row is whole row object
             // rowIdx is index of row
             // colIdx is index of column
-
+            if(fieldValue === row.contributor_id){
+                return 'zero'
+            }
             let color = '';
             if(row.contributor_score > 1){
                 color = 'blue';
@@ -87,7 +89,11 @@ export class CampaignPage extends Component {
                   pagination={true}
                   options={options}
               exportCSV>
-                <TableHeaderColumn dataField="contributor_id" className='zero' isKey={true} ></TableHeaderColumn>
+                <TableHeaderColumn
+                    dataFormat={function(cell, row){
+                        return ''
+                    }}
+                    dataField="contributor_id" className='zero' isKey={true} ></TableHeaderColumn>
                 <TableHeaderColumn
                     dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
                     filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
