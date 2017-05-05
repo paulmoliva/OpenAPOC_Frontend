@@ -66,7 +66,7 @@ export class DefaultPage extends Component {
                   if(el.style['z-index'] === theCell.toString()){
                       let row = $(el).parent();
                       let theHtml = row[0].innerHTML;
-                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 470px;' id="${theCell}-link" onclick="window.theRouter.push('/campaigns/${theCell}')">${theHtml}</a>`
+                      row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 470px; cursor: pointer;' id="${theCell}-link" onclick="window.theRouter.push('/campaigns/${theCell}')">${theHtml}</a>`
                   }
               })
           }, 1000)
@@ -105,12 +105,24 @@ export class DefaultPage extends Component {
       };
     if(this.props.campaigns.campaigns.length){
       let that = this;
+        function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
+            // fieldValue is column value
+            // row is whole row object
+            // rowIdx is index of row
+            // colIdx is index of column
+
+            if (fieldValue === row.name) {
+                return 'link'
+            } else {
+                return ''
+            }
+        }
       return (
           <BootstrapTable data={this.props.campaigns.campaigns} striped={true} hover={true} pagination={true} options={options}>
             <TableHeaderColumn dataField="id" isKey={true} dataFormat={function(cell){
                 that.cellID(cell, this);
             }} dataAlign="center" dataSort={true}>Campaign ID</TableHeaderColumn>
-              <TableHeaderColumn dataField="name" dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
+              <TableHeaderColumn dataField="name" columnClassName={columnClassNameFormat} dataFormat={cell => (cell.slice(0,54) + (cell.length > 54 ? '...' : ''))} dataSort={true}>Campaign Name</TableHeaderColumn>
             <TableHeaderColumn dataField="leans" dataFormat={function(cell){
                 that.cellColor(cell, this);
             }}

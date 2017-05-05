@@ -30,7 +30,7 @@ export class CampaignPage extends Component {
                         $(el).remove();
                         $(`th[data-field="contributor_id"]`).remove()
                         let theHtml = row[0].innerHTML;
-                        row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 300px;' id="${theCell}-link" onclick="window.theRouter.push('/contributors/${theCell}')">${theHtml}</a>`
+                        row[0].innerHTML = `<a style='z-index: ${theCell + 1}; position: absolute; opacity: 0.2; min-height: 38px; min-width: 300px; cursor: pointer;' id="${theCell}-link" onclick="window.theRouter.push('/contributors/${theCell}')">${theHtml}</a>`
                     }
                 })
             }, 250)
@@ -84,7 +84,7 @@ export class CampaignPage extends Component {
             }
             let add = '';
             if (fieldValue === row.full_name) {
-                add = ' three'
+                add = ' three link'
             } else if (fieldValue === row.Amount){
                 add = ' three'
             } else if (fieldValue === row.contributor_score) {
