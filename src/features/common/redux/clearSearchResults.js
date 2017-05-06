@@ -1,20 +1,19 @@
 import {
-  CAMPAIGNS_CLEAR_CAMPAIGNS,
+  COMMON_CLEAR_SEARCH_RESULTS,
 } from './constants';
 
-export function clearCampaigns() {
+export function clearSearchResults() {
   return {
-    type: CAMPAIGNS_CLEAR_CAMPAIGNS,
+    type: COMMON_CLEAR_SEARCH_RESULTS,
   };
 }
 
 export function reducer(state, action) {
   switch (action.type) {
-    case CAMPAIGNS_CLEAR_CAMPAIGNS:
+    case COMMON_CLEAR_SEARCH_RESULTS:
       return {
         ...state,
-        contributions: [],
-        loading: true
+        results: []
       };
 
     default:

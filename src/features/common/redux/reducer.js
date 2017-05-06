@@ -1,6 +1,10 @@
 import initialState from './initialState';
+import { reducer as requestSearchReducer } from './requestSearch';
+import { reducer as clearSearchResultsReducer } from './clearSearchResults';
 
 const reducers = [
+  requestSearchReducer,
+  clearSearchResultsReducer,
 ];
 
 export default function reducer(state = initialState, action) {

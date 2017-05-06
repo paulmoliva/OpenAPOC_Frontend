@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import $ from 'jquery';
 import { browserHistory, Link } from 'react-router'
 
 
@@ -13,13 +12,11 @@ export class CampaignPage extends Component {
   };
 
   componentDidMount(){
-    debugger;
     this.props.actions.requestACampaign({campaignID: this.props.params.campaignID})
     window.theRouter = browserHistory;
   }
 
   componentWillUnmount(){
-      debugger;
       this.props.actions.clearCampaigns();
   }
 
@@ -31,7 +28,7 @@ export class CampaignPage extends Component {
           }, {
               text: '100', value: 100
           }, {
-              text: 'All', value: this.props.campaigns.campaigns.donors.length
+              text: 'All', value: this.props.campaigns.contributions.length
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
@@ -53,7 +50,7 @@ export class CampaignPage extends Component {
           // withFirstAndLast: false > Hide the going to First and Last page button
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
-    if (!this.props.campaigns.campaigns.loading){
+    if (!this.props.campaigns.loading){
         function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
             // fieldValue is column value
             // row is whole row object
@@ -85,11 +82,11 @@ export class CampaignPage extends Component {
         let that = this;
         return (
             <div className="campaigns-campaign-page">
-              <h1>{this.props.campaigns.campaigns.donors[0].Name}</h1>
+              <h1>{this.props.campaigns.contributions[0].Name}</h1>
               <BootstrapTable
                   headerStyle={ { width: '1100px' } }
                   bodyStyle={ { width: '1100px' } }
-                  data={this.props.campaigns.campaigns.donors}
+                  data={this.props.campaigns.contributions}
                   hover={true}
                   pagination={true}
                   options={options}

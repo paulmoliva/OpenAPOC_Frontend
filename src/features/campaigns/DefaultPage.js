@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
-import $ from 'jquery';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Link } from 'react-router'
@@ -18,6 +17,10 @@ export class DefaultPage extends Component {
     this.props.actions.requestCampaigns();
   }
 
+    componentWillUnmount(){
+        this.props.actions.clearCampaigns();
+    }
+
   render() {
       const options = {
           page: 0,  // which page you want to show as default
@@ -26,7 +29,7 @@ export class DefaultPage extends Component {
           }, {
               text: '100', value: 100
           }, {
-              text: 'All', value: this.props.campaigns.campaigns.length
+              text: 'All', value: this.props.campaigns.contributions.length
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
@@ -48,7 +51,7 @@ export class DefaultPage extends Component {
           // withFirstAndLast: false > Hide the going to First and Last page button
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
       };
-    if(this.props.campaigns.campaigns.length){
+    if(this.props.campaigns.contributions.length){
         function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
             // fieldValue is column value
             // row is whole row object
@@ -67,7 +70,7 @@ export class DefaultPage extends Component {
         const leanTypes = {l: 'Left', r: 'Right'};
       return (
           <BootstrapTable
-              data={this.props.campaigns.campaigns}
+              data={this.props.campaigns.contributions}
               hover={true}
               pagination={true}
               options={options}

@@ -1,17 +1,17 @@
 import {
-  CAMPAIGNS_REQUEST_CAMPAIGNS_BEGIN,
-  CAMPAIGNS_REQUEST_CAMPAIGNS_SUCCESS,
-  CAMPAIGNS_REQUEST_CAMPAIGNS_FAILURE,
-  CAMPAIGNS_REQUEST_CAMPAIGNS_DISMISS_ERROR,
+  COMMON_REQUEST_SEARCH_BEGIN,
+  COMMON_REQUEST_SEARCH_SUCCESS,
+  COMMON_REQUEST_SEARCH_FAILURE,
+  COMMON_REQUEST_SEARCH_DISMISS_ERROR,
 } from './constants';
 import $ from 'jquery';
 
 // Rekit uses redux-thunk for async actions by default: https://github.com/gaearon/redux-thunk
 // If you prefer redux-saga, you can use rekit-plugin-redux-saga: https://github.com/supnate/rekit-plugin-redux-saga
-export function requestCampaigns(args = {}) {
+export function requestSearch(args = {}) {
   return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
-      type: CAMPAIGNS_REQUEST_CAMPAIGNS_BEGIN,
+      type: COMMON_REQUEST_SEARCH_BEGIN,
     });
 
     // Return a promise so that you could control UI flow without states in the store.
@@ -21,15 +21,15 @@ export function requestCampaigns(args = {}) {
     const promise = new Promise((resolve, reject) => {
       // doRequest is a sample which resolves promise in 20ms. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
-      const doRequest = new Promise((resolve2, reject2) =>  {
-          fetch('http://lowcost-env.ap4kzccr7q.us-west-1.elasticbeanstalk.com/api/campaigns').then(function(response) {
-              return resolve2(response.json());
-          })
+      const doRequest = new Promise((resolve2, reject2) => {
+        fetch(`http://127.0.0.1:5000/api/${args.model}/search?` + $.param(args)).then(resp => {
+          resolve2(resp.json())
+        }, () => reject2())
       });
       doRequest.then(
         (res) => {
           dispatch({
-            type: CAMPAIGNS_REQUEST_CAMPAIGNS_SUCCESS,
+            type: COMMON_REQUEST_SEARCH_SUCCESS,
             data: res,
           });
           resolve(res);
@@ -37,7 +37,7 @@ export function requestCampaigns(args = {}) {
         // Use rejectHandler as the second argument so that render errors won't be caught.
         (err) => {
           dispatch({
-            type: CAMPAIGNS_REQUEST_CAMPAIGNS_FAILURE,
+            type: COMMON_REQUEST_SEARCH_FAILURE,
             data: { error: err },
           });
           reject(err);
@@ -51,47 +51,44 @@ export function requestCampaigns(args = {}) {
 
 // Async action saves request error by default, this method is used to dismiss the error info.
 // If you don't want errors to be saved in Redux store, just ignore this method.
-export function dismissRequestCampaignsError() {
+export function dismissRequestSearchError() {
   return {
-    type: CAMPAIGNS_REQUEST_CAMPAIGNS_DISMISS_ERROR,
+    type: COMMON_REQUEST_SEARCH_DISMISS_ERROR,
   };
 }
 
 export function reducer(state, action) {
   switch (action.type) {
-    case CAMPAIGNS_REQUEST_CAMPAIGNS_BEGIN:
+    case COMMON_REQUEST_SEARCH_BEGIN:
       // Just after a request is sent
       return {
-        campaigns: {donors: [], loading: true,},
         ...state,
-        requestCampaignsPending: true,
-        requestCampaignsError: null,
+        requestSearchPending: true,
+        requestSearchError: null,
       };
 
-      case CAMPAIGNS_REQUEST_CAMPAIGNS_SUCCESS:
+    case COMMON_REQUEST_SEARCH_SUCCESS:
       // The request is success
-      let newCampaigns = { campaigns: {loading: false, donors: action.data}};
       return {
         ...state,
-        contributions: action.data,
-        loading: false,
-        requestCampaignsPending: false,
-        requestCampaignsError: null,
+        results: action.data,
+        requestSearchPending: false,
+        requestSearchError: null,
       };
 
-    case CAMPAIGNS_REQUEST_CAMPAIGNS_FAILURE:
+    case COMMON_REQUEST_SEARCH_FAILURE:
       // The request is failed
       return {
         ...state,
-        requestCampaignsPending: false,
-        requestCampaignsError: action.data.error,
+        requestSearchPending: false,
+        requestSearchError: action.data.error,
       };
 
-    case CAMPAIGNS_REQUEST_CAMPAIGNS_DISMISS_ERROR:
+    case COMMON_REQUEST_SEARCH_DISMISS_ERROR:
       // Dismiss the request failure error
       return {
         ...state,
-        requestCampaignsError: null,
+        requestSearchError: null,
       };
 
     default:

@@ -70,7 +70,8 @@ export function reducer(state, action) {
       // The request is success
       return {
         ...state,
-        campaigns: {donors: action.data, loading:false},
+        contributions: action.data,
+        loading: false,
         requestACampaignPending: false,
         requestACampaignError: null,
       };

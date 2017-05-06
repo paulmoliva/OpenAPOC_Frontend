@@ -2,16 +2,44 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
+import {requestSearch} from '../common/redux/requestSearch';
+import {clearSearchResults} from '../common/redux/clearSearchResults';
 import { Link } from 'react-router';
+import $ from 'jquery';
+
+
 
 export class DefaultPage extends Component {
+  constructor(props){
+      super(props);
+      this.state = {
+          search: '',
+          searchDelayTime: null
+      };
+      this.searchContributors = this.searchContributors.bind(this);
+  }
   static propTypes = {
     contributors: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
+  searchContributors(e){
+      const userInput = $('.bigSearch').val()
+      clearTimeout(this.state.searchDelayTimer);
+      if (!userInput.length) return this.props.actions.clearSearchResults();
+      this.setState({searchArgs: {
+          model: 'contributors',
+          search: $('.bigSearch').val()
+      }});
+      this.setState({
+          searchDelayTimer: setTimeout(() => {
+              this.props.actions.requestSearch(this.state.searchArgs)
+          }, 250)
+      });
+  }
+
   componentDidMount(){
-    this.props.actions.requestContributors();
+    // this.props.actions.requestContributors();
   }
 
   render() {
@@ -90,9 +118,19 @@ export class DefaultPage extends Component {
     }
     return (
       <div className="contributors-default-page">
-        <p>Loading.</p>
-        <img src="http://i.imgur.com/XLJxE8S.gif" />
-        <p>Please do not read this text.</p>
+        <form>
+            <input className="bigSearch" onKeyUp={this.searchContributors} type="text" placeholder="Search for Individual or Organizational Contributors"/>
+            {
+                (this.props.common.results.length) ?
+                    (<ul className="results">
+                        {this.props.common.results.map(el => (
+                            <li style={{backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
+                            <Link to={`/contributors/${el.id}`}>{el.full_name}</Link>
+                            </li>
+                        ))}
+                    </ul>) : ''
+            }
+        </form>
       </div>
     );
   }
@@ -101,14 +139,15 @@ export class DefaultPage extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    contributors: state.contributors,
+    common: state.common,
+    contributors: state.contributors
   };
 }
 
 /* istanbul ignore next */
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ ...actions }, dispatch)
+    actions: bindActionCreators({ ...actions, requestSearch: requestSearch, clearSearchResults: clearSearchResults }, dispatch)
   };
 }
 
