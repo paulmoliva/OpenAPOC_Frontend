@@ -14,6 +14,10 @@ export class ContributorPage extends Component {
     this.props.actions.requestAContributor({id: this.props.params.id})
   }
 
+    componentWillUnmount(){
+        this.props.actions.clearContributors();
+    }
+
   render() {
       const options = {
           page: 0,  // which page you want to show as default

@@ -1,10 +1,12 @@
 import initialState from './initialState';
 import { reducer as requestAContributorReducer } from './requestAContributor';
 import { reducer as requestContributorsReducer } from './requestContributors';
+import { reducer as clearContributorsReducer } from './clearContributors';
 
 const reducers = [
   requestAContributorReducer,
   requestContributorsReducer,
+  clearContributorsReducer,
 ];
 
 export default function reducer(state = initialState, action) {

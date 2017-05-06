@@ -42,6 +42,10 @@ export class DefaultPage extends Component {
     // this.props.actions.requestContributors();
   }
 
+    componentWillUnmount(){
+        this.props.actions.clearContributors();
+    }
+
   render() {
     if (this.props.contributors.contributors.length){
         const options = {
