@@ -14,6 +14,7 @@ export function reducer(state, action) {
       return {
         ...state,
         contributions: [],
+        info: {},
         loading: true
       };
 

@@ -1,6 +1,11 @@
 @import '../../styles/mixins.less';
 @import './SimpleNav.less';
 @import './PageNotFound.less';
+@import './TopNav.less';
+
+body {
+  font-family: 'Lato', sans-serif;
+}
 
 a {
   color: darkslateblue;
@@ -10,9 +15,6 @@ a {
 }
 
 .react-bs-table-csv-btn {
-  position: absolute;
-  left: -3px;
-  top: -67px;
   width: 120px;
 }
 
@@ -26,4 +28,28 @@ a {
 
 .grey {
   background-color: rgba(77,77,77, 0.3);
+}
+
+.mask{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 1;
+}
+
+ul.results {
+  z-index: 2;
+  li {
+    font-size: 18px;
+  }
+}
+
+.bigSearch {
+  width: 100%;
+  border-radius: 6px;
+  font-size: 36px;
+  padding: 2px 4px;
 }

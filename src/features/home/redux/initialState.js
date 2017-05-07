@@ -1,6 +1,6 @@
 const initialState = {
   count: 0,
-  users: {currentUser: null},
+  currentUser: null,
   redditReactjsList: [],
   fetchRedditReactjsListError: null,
   fetchRedditReactjsListPending: false,

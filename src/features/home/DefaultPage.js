@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { RedditList } from './';
 import * as actions from './redux/actions';
 
 export class DefaultPage extends Component {
@@ -19,9 +18,9 @@ export class DefaultPage extends Component {
       <div className="home-default-page">
           {
 
-              (this.props.home && this.props.home.users.currentUser) ?
+              (this.props.home.currentUser) ?
                   (
-                      <h2>Hello {this.props.home.users.currentUser.name}</h2>
+                      <h2>Hello {this.props.home.currentUser.name}</h2>
                   ) :
 
                   <h2>Please login: </h2>
@@ -36,6 +35,7 @@ export class DefaultPage extends Component {
 function mapStateToProps(state) {
   return {
     home: state.home,
+    users: state.users
   };
 }
 

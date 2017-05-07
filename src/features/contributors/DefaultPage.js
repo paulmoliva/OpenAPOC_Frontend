@@ -24,7 +24,7 @@ export class DefaultPage extends Component {
   };
 
   searchContributors(e){
-      const userInput = $('.bigSearch').val()
+      const userInput = $('.bigSearch').val();
       clearTimeout(this.state.searchDelayTimer);
       if (!userInput.length) return this.props.actions.clearSearchResults();
       this.setState({searchArgs: {
@@ -123,16 +123,22 @@ export class DefaultPage extends Component {
     return (
       <div className="contributors-default-page">
         <form>
-            <input className="bigSearch" onKeyUp={this.searchContributors} type="text" placeholder="Search for Individual or Organizational Contributors"/>
+            <input className="bigSearch"
+                   onKeyUp={this.searchContributors}
+                   type="text" placeholder="Search for Individual or Organizational Contributors"/>
             {
                 (this.props.common.results.length) ?
-                    (<ul className="results">
-                        {this.props.common.results.map(el => (
-                            <li style={{backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                            <Link to={`/contributors/${el.id}`}>{el.full_name}</Link>
-                            </li>
-                        ))}
-                    </ul>) : ''
+                    (<div>
+                        {/*<div className="mask" onClick={e => {this.props.actions.clearSearchResults();console.log(e.currentTarget); $('.bigSearch').val(''); }} />*/}
+                        <ul className="results">
+                            {this.props.common.results.map(el => (
+                                <li style={{zIndex: 2, backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
+                                <Link to={`/contributors/${el.id}`}>{el.full_name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    ) : ''
             }
         </form>
       </div>

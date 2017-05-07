@@ -3,6 +3,14 @@
 .home-app {
   height: 100%;
 
+  span {
+    ul {
+      :after {
+        content: 'Per Page'
+      }
+    }
+  }
+
   .sidebar {
     position: fixed;
     box-sizing: border-box;
@@ -11,7 +19,7 @@
     left: 0;
     margin: 0;
     padding: 40px;
-    width: 260px;
+    width: 180px;
     height: 100%;
     background-color: #f7f7f7;
 
@@ -41,5 +49,11 @@
   .page-container {
     padding: 20px 30px 0 300px;
     max-width: 800px;
+  }
+
+  .react-bs-table-csv-btn {
+    position: fixed;
+    top: 4px;
+    left: 321px;
   }
 }

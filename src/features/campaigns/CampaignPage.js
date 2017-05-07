@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { browserHistory, Link } from 'react-router'
+import {CampaignInfoBlock} from './';
 
 
 export class CampaignPage extends Component {
@@ -82,7 +83,7 @@ export class CampaignPage extends Component {
         let that = this;
         return (
             <div className="campaigns-campaign-page">
-              <h1>{this.props.campaigns.contributions[0].Name}</h1>
+              <CampaignInfoBlock />
               <BootstrapTable
                   headerStyle={ { width: '1100px' } }
                   bodyStyle={ { width: '1100px' } }

@@ -5,11 +5,42 @@
 
 import React, { PureComponent, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../home/redux/actions';
 
-export default class SimpleNav extends PureComponent {
+class SimpleNav extends PureComponent {
   static propTypes = {
     routes: PropTypes.array.isRequired,
   };
+
+  componentDidMount(){
+    window.fbAsyncInit = () => {
+      this.setState({FB: true});
+      FB.init({
+        appId      : '300312007074548',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+      FB.AppEvents.logPageView();
+      FB.getLoginStatus( (response) => {
+        if(response.status === 'connected') {
+          FB.api('/me', (resp) => {
+            this.props.actions.loginUser(resp);
+          });
+        }
+      });
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
 
   renderLinks(items, basePath) {
     return (
@@ -39,19 +70,37 @@ export default class SimpleNav extends PureComponent {
   render() {
     return (
       <div className="common-simple-nav">
-        <button
-            className="btn"
-            style={{
-              position: 'fixed',
-              top: '10px',
-              left: '268px',
-              fontSize: '15px',
-              backgroundColor: 'rgba(0,0,0,0.13)'
-            }}
-            onClick={() => window.history.back()}>←</button>
-        <div className="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>
-        {this.renderLinks(this.props.routes[0].childRoutes, '')}
+
+        {window.FB ?
+          (<div className="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>) :
+          ('')
+        }
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/campaigns">Campaigns</Link></li>
+          <li><Link to="/contributors">Contributors</Link></li>
+        </ul>
       </div>
     );
   }
 }
+
+/* istanbul ignore next */
+function mapStateToProps(state) {
+  return {
+    home: state.home,
+    users: state.users
+  };
+}
+
+/* istanbul ignore next */
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ ...actions }, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SimpleNav);

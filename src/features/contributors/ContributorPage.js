@@ -82,7 +82,7 @@ export class ContributorPage extends Component {
                 pagination={true}
                 options={options}
                 headerStyle={ { width: '900px' } }
-                bodyStyle={ { width: '850px', marginLeft: '25px' } }
+                bodyStyle={ { width: '900px' } }
             >
               <TableHeaderColumn dataField="Result" isKey={true}
                                  columnClassName={columnClassNameFormat}
