@@ -79,6 +79,7 @@ class SimpleNav extends PureComponent {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/campaigns">Campaigns</Link></li>
           <li><Link to="/contributors">Contributors</Link></li>
+          <li><a href="/privacy" target="_blank">Privacy</a></li>
         </ul>
       </div>
     );
