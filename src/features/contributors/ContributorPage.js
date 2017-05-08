@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { Link } from 'react-router';
+import {ContributorInfoBlock} from './ContributorInfoBlock';
+import LoadingSpinner from '../common/LoadingSpinner'
 
 export class ContributorPage extends Component {
   static propTypes = {
@@ -19,14 +21,15 @@ export class ContributorPage extends Component {
     }
 
   render() {
-      const options = {
+      if(this.props.contributors.contributions.length){
+        const options = {
           page: 0,  // which page you want to show as default
           sizePerPageList: [ {
-              text: '50', value: 50
+            text: '50', value: 50
           }, {
-              text: '100', value: 100
+            text: '100', value: 100
           }, {
-              text: 'All', value: this.props.contributors.contributor.length
+            text: 'All', value: this.props.contributors.contributions.length
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
@@ -47,8 +50,7 @@ export class ContributorPage extends Component {
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
           // hidePageListOnlyOnePage: true > Hide the page list if only one page.
-      };
-      if(this.props.contributors.contributor.length){
+        };
           function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
               // fieldValue is column value
               // row is whole row object
@@ -57,10 +59,10 @@ export class ContributorPage extends Component {
               let name;
               if (fieldValue === row.name) {
                   name = 'link'
-              } else if (fieldValue === row.id) {
-                  return ''
+              } else if (fieldValue === row.Name) {
+                  name = 'nameCell'
               } else {
-                  name = ''
+                  name = 'nameCell'
               }
               let color = '';
               if(row.lean === 'l' ){
@@ -74,15 +76,15 @@ export class ContributorPage extends Component {
           }
           const leanTypes = {l: 'Left', r: 'Right'};
         return (
-            <div className="contributors-contributor-page">
-              <h1>Contributions by {this.props.contributors.contributor[0].full_name}</h1>
+            <div className="contributors-contributor-page standardPage">
+              <ContributorInfoBlock contributors={this.props.contributors} actions={this.props.actions}/>
             <BootstrapTable
-                data={this.props.contributors.contributor}
+                data={this.props.contributors.contributions}
                 hover={true}
                 pagination={true}
                 options={options}
-                headerStyle={ { width: '900px' } }
-                bodyStyle={ { width: '900px' } }
+                headerStyle={ { width: '100%' } }
+                bodyStyle={ { width: '100%' } }
             >
               <TableHeaderColumn dataField="Result" isKey={true}
                                  columnClassName={columnClassNameFormat}
@@ -123,10 +125,8 @@ export class ContributorPage extends Component {
         )
       } else {
           return (
-              <div className="contributors-contributor-page">
-                <p>Loading.</p>
-                <img src="http://i.imgur.com/XLJxE8S.gif" />
-                <p>Please do not read this text.</p>
+              <div className="contributors-contributor-page standardPage">
+                <LoadingSpinner/>
               </div>
           );
       }

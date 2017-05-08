@@ -63,18 +63,37 @@ export function reducer(state, action) {
       // Just after a request is sent
       return {
         ...state,
+        loading: true,
         requestSearchPending: true,
         requestSearchError: null,
       };
 
     case COMMON_REQUEST_SEARCH_SUCCESS:
       // The request is success
-      return {
-        ...state,
-        results: action.data,
-        requestSearchPending: false,
-        requestSearchError: null,
-      };
+      if(action.data[0].formSubmit){
+        return {
+          ...state,
+          contributors: action.data,
+          loading: false,
+          results: [],
+          requestSearchPending: false,
+          requestSearchError: null,
+          submitted: false
+        };
+      } else {
+        return {
+          ...state,
+          results: action.data,
+          contributors: [{
+            id: 0,
+            full_name: 'No Results',
+            score: '-1'
+          }],
+          loading: false,
+          requestSearchPending: false,
+          requestSearchError: null,
+        };
+      }
 
     case COMMON_REQUEST_SEARCH_FAILURE:
       // The request is failed

@@ -10,20 +10,27 @@ export class TopNav extends Component {
   };
 
   render() {
+    const showBackButton = new RegExp(window.location.origin).test(document.referrer);
     return (
       <div className="common-top-nav">
-        <button
-          className="btn"
-          style={{
-            position: 'fixed',
-            top: '-7px',
-            left: '190px',
-            fontSize: '36px',
-            backgroundColor: 'transparent',
-            padding: 0,
-            height: '40px'
-          }}
-          onClick={() => window.history.back()}>←</button>      </div>
+        {showBackButton ?
+          <button
+            className="btn"
+            style={{
+              position: 'fixed',
+              top: '-7px',
+              left: '190px',
+              fontSize: '36px',
+              backgroundColor: 'transparent',
+              padding: 0,
+              height: '40px'
+            }}
+            onClick={() => window.history.back()}>←
+          </button> :
+          ''
+        }
+
+      </div>
     );
   }
 }

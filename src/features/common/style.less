@@ -2,9 +2,11 @@
 @import './SimpleNav.less';
 @import './PageNotFound.less';
 @import './TopNav.less';
+@import './LoadingSpinner.less';
 
 body {
   font-family: 'Lato', sans-serif;
+  background-color: whitesmoke;
 }
 
 a {
@@ -52,4 +54,31 @@ ul.results {
   border-radius: 6px;
   font-size: 36px;
   padding: 2px 4px;
+}
+
+.btn {
+  &:focus {
+    outline: none;
+  }
+}
+
+.nameCell {
+  width: 224px;
+}
+
+.table {
+  margin-bottom: 1px;
+  border-bottom: groove;
+}
+
+.react-bootstrap-table-page-btns-ul {
+  &.pagination {
+    margin: 5px 0;
+  }
+}
+
+.standardPage {
+  background: white;
+  padding: 6px;
+  border-radius: 6px;
 }

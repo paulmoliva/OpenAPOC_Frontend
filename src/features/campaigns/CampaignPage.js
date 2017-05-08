@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { browserHistory, Link } from 'react-router'
 import {CampaignInfoBlock} from './';
+import LoadingSpinner from '../common/LoadingSpinner';
+
 
 
 export class CampaignPage extends Component {
@@ -82,7 +84,7 @@ export class CampaignPage extends Component {
         }
         let that = this;
         return (
-            <div className="campaigns-campaign-page">
+            <div className="campaigns-campaign-page standardPage">
               <CampaignInfoBlock />
               <BootstrapTable
                   headerStyle={ { width: '1100px' } }
@@ -141,10 +143,8 @@ export class CampaignPage extends Component {
         );
     } else {
         return (
-            <div className="campaigns-campaign-page">
-                <p>Loading.</p>
-                <img src="http://i.imgur.com/XLJxE8S.gif" />
-                <p>Please do not read this text.</p>
+            <div className="campaigns-campaign-page standardPage">
+              <LoadingSpinner/>
             </div>
         );
     }

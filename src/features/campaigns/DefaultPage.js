@@ -5,6 +5,7 @@ import * as actions from './redux/actions';
 
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Link } from 'react-router'
+import LoadingSpinner from '../common/LoadingSpinner';
 
 
 export class DefaultPage extends Component {
@@ -103,10 +104,8 @@ export class DefaultPage extends Component {
       )
     } else
     return (
-      <div className="campaigns-default-page">
-          <p>Loading.</p>
-          <img src="http://i.imgur.com/XLJxE8S.gif" />
-          <p>Please do not read this text.</p>
+      <div className="campaigns-default-page standardPage">
+        <LoadingSpinner/>
       </div>
     );
   }

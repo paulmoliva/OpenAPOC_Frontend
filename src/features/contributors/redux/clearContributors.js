@@ -13,7 +13,7 @@ export function reducer(state, action) {
     case CONTRIBUTORS_CLEAR_CONTRIBUTORS:
       return {
         contributor: [],
-        contributors: [],
+        contributions: [],
         ...state,
       };
 

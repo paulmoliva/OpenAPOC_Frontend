@@ -6,6 +6,7 @@ import {requestSearch} from '../common/redux/requestSearch';
 import {clearSearchResults} from '../common/redux/clearSearchResults';
 import { Link } from 'react-router';
 import $ from 'jquery';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 
 
@@ -14,9 +15,11 @@ export class DefaultPage extends Component {
       super(props);
       this.state = {
           search: '',
-          searchDelayTime: null
+          searchDelayTime: null,
+          submitted: false
       };
       this.searchContributors = this.searchContributors.bind(this);
+      this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
   static propTypes = {
     contributors: PropTypes.object.isRequired,
@@ -24,6 +27,7 @@ export class DefaultPage extends Component {
   };
 
   searchContributors(e){
+      if(this.state.submitted && this.props.common.loading) return;
       const userInput = $('.bigSearch').val();
       clearTimeout(this.state.searchDelayTimer);
       if (!userInput.length) return this.props.actions.clearSearchResults();
@@ -38,16 +42,32 @@ export class DefaultPage extends Component {
       });
   }
 
-  componentDidMount(){
-    // this.props.actions.requestContributors();
+  handleSearchSubmit(e){
+    this.setState({submitted: true});
+    clearTimeout(this.state.searchDelayTimer);
+    this.props.actions.clearSearchResults();
+    e.preventDefault();
+    const searchTerm = $('.bigSearch').val();
+    const userInput = searchTerm;
+    this.props.actions.requestSearch({
+      model: 'contributors',
+      search: userInput,
+      formSubmit: true
+    })
   }
 
-    componentWillUnmount(){
-        this.props.actions.clearContributors();
-    }
+  componentDidMount(){
+    this.props.actions.clearSearchResults();
+  }
+
+  componentWillUnmount(){
+    this.props.actions.clearContributors();
+    this.props.actions.clearSearchResults();
+  }
 
   render() {
-    if (this.props.contributors.contributors.length){
+    let table = null;
+    if (this.state.submitted && this.props.common.contributors[0].id !== 0){
         const options = {
             page: 0,  // which page you want to show as default
             sizePerPageList: [ {
@@ -55,7 +75,7 @@ export class DefaultPage extends Component {
             }, {
                 text: '100', value: 100
             }, {
-                text: 'All', value: this.props.contributors.contributors.length
+                text: 'All', value: this.props.common.contributors.length
             } ], // you can change the dropdown list for size per page
             sizePerPage: 50,  // which size per page you want to locate as default
             pageStartIndex: 0, // where to start counting the pages
@@ -78,7 +98,7 @@ export class DefaultPage extends Component {
             // hidePageListOnlyOnePage: true > Hide the page list if only one page.
         };
         function columnClassNameFormat(cell, row, rowIdx, colIdx) {
-            // fieldValue is column value
+          // fieldValue is column value
             // row is whole row object
             // rowIdx is index of row
             // colIdx is index of column
@@ -88,10 +108,13 @@ export class DefaultPage extends Component {
                 return 'red'
             } else return 'grey'
         }
-        return(
-          <div className="contributors-default-page">
+        table =(
             <BootstrapTable
-                data={this.props.contributors.contributors}
+                data={this.props.common.contributors || [{
+                  id: 0,
+                  full_name: 'No Results',
+                  score: '-1'
+                }]}
                 hover={true}
                 pagination={true}
                 options={options}
@@ -117,17 +140,16 @@ export class DefaultPage extends Component {
                   }}
                   dataSort={true}>Lean Score</TableHeaderColumn>
             </BootstrapTable>
-          </div>
           )
     }
     return (
-      <div className="contributors-default-page">
-        <form>
+      <div className="contributors-default-page standardPage">
+        {!this.state.submitted ? (<form onSubmit={this.handleSearchSubmit}>
             <input className="bigSearch"
                    onKeyUp={this.searchContributors}
                    type="text" placeholder="Search for Individual or Organizational Contributors"/>
             {
-                (this.props.common.results.length) ?
+                (this.props.common.results.length && !this.state.submitted) ?
                     (<div>
                         {/*<div className="mask" onClick={e => {this.props.actions.clearSearchResults();console.log(e.currentTarget); $('.bigSearch').val(''); }} />*/}
                         <ul className="results">
@@ -140,7 +162,9 @@ export class DefaultPage extends Component {
                     </div>
                     ) : ''
             }
-        </form>
+        </form>) : ''}
+        {((this.state.submitted && this.props.common.loading) ? <LoadingSpinner/> : '')}
+        {(table && this.props.common.contributors.length) ? table : ''}
       </div>
     );
   }

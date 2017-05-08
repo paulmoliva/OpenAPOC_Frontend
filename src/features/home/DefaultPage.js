@@ -15,7 +15,7 @@ export class DefaultPage extends Component {
     const { count, fetchRedditReactjsListPending, redditReactjsList, fetchRedditReactjsListError } = this.props.home;
     const { counterPlusOne, counterMinusOne, resetCounter, fetchRedditReactjsList } = this.props.actions;
     return (
-      <div className="home-default-page">
+      <div className="home-default-page standardPage">
           {
 
               (this.props.home.currentUser) ?

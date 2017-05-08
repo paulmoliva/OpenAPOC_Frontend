@@ -13,7 +13,12 @@ export function reducer(state, action) {
     case COMMON_CLEAR_SEARCH_RESULTS:
       return {
         ...state,
-        results: []
+        results: [],
+        contributors: [{
+          id: 0,
+          full_name: 'No Results',
+          score: '-1'
+        }]
       };
 
     default:
