@@ -15,6 +15,7 @@ class SimpleNav extends PureComponent {
   };
 
   componentDidMount(){
+    (adsbygoogle = window.adsbygoogle || []).push({});
     window.fbAsyncInit = () => {
       this.setState({FB: true});
       FB.init({
@@ -81,6 +82,13 @@ class SimpleNav extends PureComponent {
           <li><Link to="/contributors">Contributors</Link></li>
           <li><a href="/privacy" target="_blank">Privacy</a></li>
         </ul>
+        <ins className="adsbygoogle"
+             style={{display:'inlineBlock'}}
+             data-ad-client="ca-pub-1303389657186007"
+             data-ad-slot="8024576174"
+             data-ad-format="auto"
+        >
+        </ins>
       </div>
     );
   }
