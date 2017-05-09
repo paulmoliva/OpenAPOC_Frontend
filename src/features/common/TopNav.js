@@ -12,14 +12,11 @@ export class TopNav extends Component {
   render() {
       let marginTop;
       let adSlot;
-      if(this.props.campaigns.contributions.length){
+      if(!this.props.campaigns.contributions.length){
           marginTop = '4px';
-          adSlot = "8024576174";
-      } else if (this.props.contributors.contributions.length){
-          marginTop = '6px'
-      } else {
+          adSlot = false;
+      }  else {
           marginTop = '5px';
-          adSlot="3315174973";
       }
     return (
       <div className="common-top-nav">
@@ -36,11 +33,20 @@ export class TopNav extends Component {
           }}
           onClick={() => window.history.back()}>←
         </button>
-        <ins className="adsbygoogle"
-               style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:marginTop}}
-               data-ad-client="ca-pub-1303389657186007"
-               data-ad-slot={adSlot}>
-        </ins>
+          {
+              adSlot ?
+                  (
+                      <ins className="adsbygoogle"
+                           style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:marginTop}}
+                           data-ad-client="ca-pub-1303389657186007"
+                           data-ad-slot="3315174973">
+                      </ins>
+                  ) :
+                  (
+                      ''
+                  )
+          }
+
       </div>
     );
   }
