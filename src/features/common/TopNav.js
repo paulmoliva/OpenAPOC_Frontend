@@ -10,6 +10,12 @@ export class TopNav extends Component {
   };
 
   render() {
+      let marginTop;
+      if(this.props.campaigns.contributions.length){
+          marginTop = '4px'
+      } else if (this.props.contributors.contributions.length){
+          marginTop = '6px'
+      } else marginTop = '5px';
     return (
       <div className="common-top-nav">
         <button
@@ -26,7 +32,7 @@ export class TopNav extends Component {
           onClick={() => window.history.back()}>←
         </button>
         <ins className="adsbygoogle"
-               style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'380px', marginTop:'5px'}}
+               style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'380px', marginTop:marginTop}}
                data-ad-client="ca-pub-1303389657186007"
                data-ad-slot="3315174973">
         </ins>
@@ -39,6 +45,8 @@ export class TopNav extends Component {
 function mapStateToProps(state) {
   return {
     common: state.common,
+    campaigns: state.campaigns,
+    contributors: state.contributors
   };
 }
 
