@@ -15,7 +15,7 @@ class SimpleNav extends PureComponent {
   };
 
   componentDidMount(){
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    setTimeout(function(){(adsbygoogle = window.adsbygoogle || []).push({})}, 1000);
     window.fbAsyncInit = () => {
       this.setState({FB: true});
       FB.init({
