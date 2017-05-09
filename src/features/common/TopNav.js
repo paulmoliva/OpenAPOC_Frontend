@@ -27,7 +27,7 @@ export class TopNav extends Component {
           onClick={() => window.history.back()}>←
         </button>
           <ins className="adsbygoogle"
-              style={{display:"inlineBlock",width:'728px',height:'90px'}}
+              style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px'}}
               data-ad-client="ca-pub-1303389657186007"
               data-ad-slot="1838441776">
           </ins>
