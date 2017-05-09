@@ -39,9 +39,9 @@ export default class App extends Component {
           {this.props.children}
 
             <ins className="adsbygoogle"
-                 style={{display:"inlineBlock",width:'728px',height:'90px'}}
+                 style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:marginTop}}
                  data-ad-client="ca-pub-1303389657186007"
-                 data-ad-slot="1838441776">
+                 data-ad-slot="2506092974">
             </ins>
         </div>
       </div>

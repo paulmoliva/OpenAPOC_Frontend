@@ -10,14 +10,7 @@ export class TopNav extends Component {
   };
 
   render() {
-      let marginTop;
-      let adSlot = true;
-      if(!this.props.campaigns.contributions.length){
-          marginTop = '4px';
-          adSlot = true;
-      }  else {
-          marginTop = '5px';
-      }
+
     return (
       <div className="common-top-nav">
         <button
@@ -33,20 +26,11 @@ export class TopNav extends Component {
           }}
           onClick={() => window.history.back()}>←
         </button>
-          {
-              adSlot ?
-                  (
-                      <ins className="adsbygoogle"
-                           style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:marginTop}}
-                           data-ad-client="ca-pub-1303389657186007"
-                           data-ad-slot="2506092974">
-                      </ins>
-                  ) :
-                  (
-                      ''
-                  )
-          }
-
+          <ins className="adsbygoogle"
+              style={{display:"inlineBlock",width:'728px',height:'90px'}}
+              data-ad-client="ca-pub-1303389657186007"
+              data-ad-slot="1838441776">
+          </ins>
       </div>
     );
   }
