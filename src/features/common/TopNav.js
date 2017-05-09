@@ -11,7 +11,7 @@ export class TopNav extends Component {
 
   render() {
       let marginTop;
-      let adSlot;
+      let adSlot = true;
       if(!this.props.campaigns.contributions.length){
           marginTop = '4px';
           adSlot = false;
