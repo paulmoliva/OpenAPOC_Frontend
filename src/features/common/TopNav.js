@@ -14,7 +14,7 @@ export class TopNav extends Component {
       let adSlot = true;
       if(!this.props.campaigns.contributions.length){
           marginTop = '4px';
-          adSlot = false;
+          adSlot = true;
       }  else {
           marginTop = '5px';
       }
@@ -39,7 +39,7 @@ export class TopNav extends Component {
                       <ins className="adsbygoogle"
                            style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:marginTop}}
                            data-ad-client="ca-pub-1303389657186007"
-                           data-ad-slot="3315174973">
+                           data-ad-slot="2506092974">
                       </ins>
                   ) :
                   (
