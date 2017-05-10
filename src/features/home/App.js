@@ -38,11 +38,6 @@ export default class App extends Component {
         <div className="page-container">
           {this.props.children}
 
-            <ins className="adsbygoogle"
-                 style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px', marginTop:'5px'}}
-                 data-ad-client="ca-pub-1303389657186007"
-                 data-ad-slot="3315174973">
-            </ins>
         </div>
       </div>
     );

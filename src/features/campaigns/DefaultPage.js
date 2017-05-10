@@ -66,6 +66,7 @@ export class DefaultPage extends Component {
             } else {
                 color = ' grey'
             }
+            color += ' half';
             return color;
         }
         const leanTypes = {l: 'Left', r: 'Right'};
@@ -76,7 +77,7 @@ export class DefaultPage extends Component {
               pagination={true}
               options={options}
               headerStyle={ { width: '900px' } }
-              bodyStyle={ { width: '850px', marginLeft: '25px' } }
+              bodyStyle={ { width: '900px'} }
           >
             <TableHeaderColumn dataField="id" isKey={true}
                columnClassName={columnClassNameFormat}
