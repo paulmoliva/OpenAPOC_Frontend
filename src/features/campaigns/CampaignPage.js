@@ -102,7 +102,7 @@ export class CampaignPage extends Component {
                 hidden>
                     ID</TableHeaderColumn>
                 <TableHeaderColumn
-                    dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
+                    dataFormat={(cell, row) => <a target="_blank" href={`/contributors/${row.contributor_id}`}>{cell}</a>}
                     filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
                 <TableHeaderColumn
                     filter={ { type: 'NumberFilter', delay: 1000, numberComparators: ['=', '>', '<'] } }

@@ -155,7 +155,7 @@ export class DefaultPage extends Component {
                         <ul className="results">
                             {this.props.common.results.map(el => (
                                 <li style={{zIndex: 2, backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                                <Link to={`/contributors/${el.id}`}>{el.full_name}</Link>
+                                <a target="_blank" href={`/contributors/${el.id}`}>{el.full_name}</a>
                                 </li>
                             ))}
                         </ul>
