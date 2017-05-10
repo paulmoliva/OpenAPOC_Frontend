@@ -149,9 +149,10 @@ export class DefaultPage extends Component {
           )
     }
     return (
-      <div className="contributors-default-page standardPage">
+      <div className="contributors-default-page standardPage form-group">
         {!this.state.submitted ? (<form onSubmit={this.handleSearchSubmit}>
-            <input className="bigSearch"
+            <input className="bigSearch form-control"
+                   id="focusedInput"
                    onKeyUp={this.searchContributors}
                    type="text" placeholder="Search for Individual or Organizational Contributors"/>
             {
@@ -168,7 +169,9 @@ export class DefaultPage extends Component {
                         >
                             {this.props.common.results.map(el => (
                                 <li style={{zIndex: 2, backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                                    <a target="_blank" href={`/contributors/${el.id}`}>{el.full_name.slice(0,50)}</a>
+                                    <Link to={`/contributors/${el.id}`}>{el.full_name.slice(0,50)}</Link>
+                                    <p>Score: {el.score}</p>
+                                    <p>Total: {el.total}</p>
                                 </li>
                             ))}
                         </Masonry>

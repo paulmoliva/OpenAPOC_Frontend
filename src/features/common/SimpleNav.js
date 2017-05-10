@@ -14,33 +14,7 @@ class SimpleNav extends PureComponent {
     routes: PropTypes.array.isRequired,
   };
 
-  componentDidMount(){
-    window.fbAsyncInit = () => {
-      this.setState({FB: true});
-      FB.init({
-        appId      : '300312007074548',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.8'
-      });
-      FB.AppEvents.logPageView();
-      FB.getLoginStatus( (response) => {
-        if(response.status === 'connected') {
-          FB.api('/me', (resp) => {
-            this.props.actions.loginUser(resp);
-          });
-        }
-      });
-    };
 
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  }
 
   renderLinks(items, basePath) {
     return (
@@ -71,10 +45,7 @@ class SimpleNav extends PureComponent {
     return (
       <div className="common-simple-nav">
 
-        {window.FB ?
-          (<div className="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div>) :
-          ('')
-        }
+
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/campaigns">Campaigns</Link></li>

@@ -86,7 +86,7 @@ export class DefaultPage extends Component {
               hidden>ID</TableHeaderColumn>
             <TableHeaderColumn
                 dataFormat={function(cell, row){
-                    return <a target="_blank" href={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</a>
+                    return <Link to={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</Link>
                 }}
                 filter={ { type: 'TextFilter', delay: 1000 } } dataField="name" columnClassName={columnClassNameFormat} dataSort={true}>Campaign Name</TableHeaderColumn>
             <TableHeaderColumn

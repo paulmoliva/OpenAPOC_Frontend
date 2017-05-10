@@ -31,10 +31,16 @@ export default class App extends Component {
   render() {
     return (
       <div className="home-app">
-        <div className="sidebar">
-          <SimpleNav FB={this.state.FB} routes={routeConfig} />
-        </div>
-        <TopNav />
+        <TopNav routes/>
+          <div className="container" style={{marginBottom: "10px"}}>
+              <div style={{border: "1px solid black", width:"720px", height: "90px", marginLeft:"200px"}}>
+                  <ins className="adsbygoogle"
+                       style={{display:"inlineBlock",width:'728px',height:'90px', marginLeft:'420px'}}
+                       data-ad-client="ca-pub-1303389657186007"
+                       data-ad-slot="1838441776">
+                  </ins>
+              </div>
+          </div>
         <div className="page-container">
           {this.props.children}
 
