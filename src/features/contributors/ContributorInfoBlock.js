@@ -17,6 +17,7 @@ export class ContributorInfoBlock extends Component {
           <p>Contributor Name: {the_contributor.full_name}</p>
           <p>Lean Score: {the_contributor.score}</p>
           <p>Total Contributions: {the_contributor.total}</p>
+          <iframe src={`https://duckduckgo.com/search.html?prefill=${the_contributor.full_name} Alaska`} style={{overflow:'hidden',margin:'0',padding:'0',width:'408px',height:"40px"}} frameborder="0"></iframe>
         </div>
       );
     } else return <div/>
