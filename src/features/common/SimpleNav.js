@@ -80,6 +80,7 @@ class SimpleNav extends PureComponent {
           <li><Link to="/campaigns">Campaigns</Link></li>
           <li><Link to="/contributors">Contributors</Link></li>
           <li><a href ="https://vimeo.com/album/4578100" target="_blank">Help Videos</a></li>
+          <li><a href ="https://squareup.com/store/paul-oliva" target="_blank">Donate</a></li>
           <li><a href="/privacy" target="_blank">Privacy</a></li>
         </ul>
       </div>
