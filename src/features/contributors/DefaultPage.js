@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+const Masonry = require('react-masonry-component');
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -67,7 +68,12 @@ export class DefaultPage extends Component {
 
   render() {
     let table = null;
-    if (this.state.submitted && this.props.common.contributors[0].id !== 0){
+    let masonryOptions = {
+        columnWidth: 110,
+        gutter: 8,
+        itemSelector: 'li'
+    };
+            if (this.state.submitted && this.props.common.contributors[0].id !== 0){
         const options = {
             page: 0,  // which page you want to show as default
             sizePerPageList: [ {
@@ -152,13 +158,20 @@ export class DefaultPage extends Component {
                 (this.props.common.results.length && !this.state.submitted) ?
                     (<div>
                         {/*<div className="mask" onClick={e => {this.props.actions.clearSearchResults();console.log(e.currentTarget); $('.bigSearch').val(''); }} />*/}
-                        <ul className="results">
+
+                        <Masonry
+                            className={'results'} // default ''
+                            elementType={'ul'} // default 'div'
+                            options={masonryOptions} // default {}
+                            disableImagesLoaded={false} // default false
+                            updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                        >
                             {this.props.common.results.map(el => (
                                 <li style={{zIndex: 2, backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                                <a target="_blank" href={`/contributors/${el.id}`}>{el.full_name}</a>
+                                    <a target="_blank" href={`/contributors/${el.id}`}>{el.full_name.slice(0,50)}</a>
                                 </li>
                             ))}
-                        </ul>
+                        </Masonry>
                     </div>
                     ) : ''
             }
