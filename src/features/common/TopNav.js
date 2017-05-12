@@ -65,9 +65,6 @@ export class TopNav extends Component {
                         <Link className="nav-link waves-effect waves-light" to="/contributors">Contributors</Link>
                     </li>
                     <li className="nav-item waves-effect waves-light">
-                        <Link className="nav-link waves-effect waves-light" to="https://vimeo.com/album/4578100" target="_blank">Help Videos</Link>
-                    </li>
-                    <li className="nav-item waves-effect waves-light">
                         <Link className="nav-link waves-effect waves-light" to="https://squareup.com/store/paul-oliva" target="_blank">Donate</Link>
                     </li>
                     <li className="nav-item waves-effect waves-light">
