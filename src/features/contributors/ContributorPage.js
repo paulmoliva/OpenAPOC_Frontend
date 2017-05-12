@@ -66,11 +66,11 @@ export class ContributorPage extends Component {
               }
               let color = '';
               if(row.lean === 'l' ){
-                  color = ' blue';
+                  // color = ' blue';
               } else if (row.lean === 'r'){
-                  color = ' red';
+                  // color = ' red';
               } else {
-                  color = ' grey'
+                  // color = ' grey'
               }
               return name + color ;
           }
@@ -118,7 +118,7 @@ export class ContributorPage extends Component {
                           return 'Right'
                       } else return '-'
                   }}
-                  dataSort={true}>Campaign Leans</TableHeaderColumn>
+                  dataSort={true} hidden>Campaign Leans</TableHeaderColumn>
             </BootstrapTable>
             </div>
         )

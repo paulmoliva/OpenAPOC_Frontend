@@ -64,25 +64,24 @@ export class CampaignPage extends Component {
             }
             let color = '';
             if(row.contributor_score > 1){
-                color = 'blue';
+                // color = 'blue';
             } else if (row.contributor_score < -1){
-                color = 'red';
+                // color = 'red';
             } else {
-                color = 'grey'
+                // color = 'grey'
             }
             let add = '';
             if (fieldValue === row.full_name) {
-                add = ' three link'
-            } else if (fieldValue === row.total_amount){
-                add = ' three'
-            } else if (fieldValue === row.contributor_score) {
-                add = ' three'
-            } else {
-                add = ' zero'
-            }
+                add = ' link';
+            } //else if (fieldValue === row.total_amount){
+            //     add = ' three'
+            // } else if (fieldValue === row.contributor_score) {
+            //     add = ' three'
+            // } else {
+            //     add = ' zero'
+            //}
             return color + add;
         }
-        let that = this;
         return (
             <div className="campaigns-campaign-page standardPage">
               <CampaignInfoBlock />
@@ -93,11 +92,8 @@ export class CampaignPage extends Component {
                   hover={true}
                   pagination={true}
                   options={options}
-              exportCSV>
+              >
                 <TableHeaderColumn
-                    dataFormat={function(cell, row){
-                        return cell
-                    }}
                     dataField="contributor_id" isKey={true}
                 hidden>
                     ID</TableHeaderColumn>
@@ -135,7 +131,7 @@ export class CampaignPage extends Component {
                         delay: 1000,
                         numberComparators: [ '=', '>', '<=' ]
                     }}
-                >
+                hidden>
                     Leans
                 </TableHeaderColumn>
               </BootstrapTable>

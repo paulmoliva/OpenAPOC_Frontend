@@ -60,11 +60,11 @@ export class DefaultPage extends Component {
             // colIdx is index of column
             let color = '';
             if(row.leans === 'l' ){
-                color = ' blue';
+                // color = ' blue';
             } else if (row.leans === 'r'){
-                color = ' red';
+                // color = ' red';
             } else {
-                color = ' grey'
+                // color = ' grey'
             }
             color += ' half';
             return color;
@@ -100,7 +100,7 @@ export class DefaultPage extends Component {
                         return 'Right'
                     } else return '-'
                 }}
-            dataSort={true}>Campaign Leans</TableHeaderColumn>
+            dataSort={true} hidden>Campaign Leans</TableHeaderColumn>
           </BootstrapTable>
       )
     } else
