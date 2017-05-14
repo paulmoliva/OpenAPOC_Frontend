@@ -5,6 +5,7 @@ import commonRoute from '../features/common/route';
 import campaignsRoute from '../features/campaigns/route';
 import usersRoute from '../features/users/route';
 import contributorsRoute from '../features/contributors/route';
+import votersRoute from '../features/voters/route';
 
 // NOTE: DO NOT CHANGE the 'childRoutes' name and the declaration pattern.
 // This is used for Rekit cmds to register routes config for new features, and remove config when remove features, etc.
@@ -14,6 +15,7 @@ const childRoutes = [
   campaignsRoute,
   usersRoute,
   contributorsRoute,
+  votersRoute,
 ];
 
 const routes = [{
