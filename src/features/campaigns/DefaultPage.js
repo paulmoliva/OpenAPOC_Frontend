@@ -88,7 +88,8 @@ export class DefaultPage extends Component {
                 dataFormat={function(cell, row){
                     return <Link to={`/campaigns/${row.id}`}>{cell.slice(0, 54)}</Link>
                 }}
-                filter={ { type: 'TextFilter', delay: 1000 } } dataField="name" columnClassName={columnClassNameFormat} dataSort={true}>Campaign Name</TableHeaderColumn>
+                filter={ { type: 'TextFilter', delay: 1000 } } dataField="name" columnClassName={columnClassNameFormat} dataSort={true}>Campaign Name
+            </TableHeaderColumn>
             <TableHeaderColumn
                 columnClassName={columnClassNameFormat}
                 filter={ { type: 'SelectFilter', options: leanTypes }}

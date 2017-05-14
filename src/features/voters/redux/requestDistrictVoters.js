@@ -21,7 +21,7 @@ export function requestDistrictVoters(args = {}) {
       // doRequest is a sample which resolves promise in 20ms. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
       const doRequest = new Promise((resolve2, reject2) => {
-        fetch(`http://127.0.0.1:5000/api/voters/district/${args.district}`).then( resp => {
+        fetch(`/api/voters/district/${args.district}`).then( resp => {
           resolve2(resp.json())
         }, resp => {
           reject2(resp)

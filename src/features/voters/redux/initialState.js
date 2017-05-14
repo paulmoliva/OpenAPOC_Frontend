@@ -8,6 +8,7 @@
 const initialState = {
   requestDistrictVotersPending: false,
   requestDistrictVotersError: null,
+  voters: []
 };
 
 export default initialState;
