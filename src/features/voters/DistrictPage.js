@@ -57,6 +57,7 @@ export class DistrictPage extends Component {
               options={options}
               headerStyle={ { width: '1100px' } }
               bodyStyle={ { width: '1100px'} }
+              exportCSV
           >
             <TableHeaderColumn dataField="id" isKey={true}
                                // columnClassName={columnClassNameFormat}
