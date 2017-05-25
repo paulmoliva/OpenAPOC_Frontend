@@ -82,7 +82,6 @@ export class CampaignPage extends Component {
             }
             return color + add;
         }
-        let that = this;
         return (
             <div className="campaigns-campaign-page standardPage">
               <CampaignInfoBlock />

@@ -49,14 +49,29 @@ export class DistrictPage extends Component {
     if(!this.props.voters.voters.length) {
       content = 'loading';
     } else {
+        function columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
+            // fieldValue is column value
+            // row is whole row object
+            // rowIdx is index of row
+            // colIdx is index of column
+            let color = '';
+            if(row.score_guess > 500){
+                color = 'blue';
+            } else if (row.score_guess < -500){
+                color = 'red';
+            } else {
+                color = 'grey'
+            }
+            return color;
+        }
       content = (
           <BootstrapTable
               data={this.props.voters.voters}
               hover={true}
               pagination={true}
               options={options}
-              headerStyle={ { width: '1100px' } }
-              bodyStyle={ { width: '1100px'} }
+              headerStyle={ { width: '100%' } }
+              bodyStyle={ { width: '100%'} }
               exportCSV
           >
             <TableHeaderColumn dataField="id" isKey={true}
@@ -68,6 +83,7 @@ export class DistrictPage extends Component {
                 filter={ { type: 'TextFilter', delay: 1000 } }
                 dataField="full_name"
                 dataSort={true}
+                columnClassName={columnClassNameFormat}
             >
               Name
             </TableHeaderColumn>
@@ -75,6 +91,7 @@ export class DistrictPage extends Component {
                 filter={ { type: 'TextFilter', delay: 1000 } }
                 dataField="RESIDENCE_ADDRESS"
                 dataSort={true}
+                columnClassName={columnClassNameFormat}
             >
               RESIDENCE ADDRESS
             </TableHeaderColumn>
@@ -82,10 +99,11 @@ export class DistrictPage extends Component {
                 filter={ { type: 'TextFilter', delay: 1000 } }
                 dataField="RESIDENCE_ZIP"
                 dataSort={true}
+                columnClassName={columnClassNameFormat}
             >
               RESIDENCE ZIP
             </TableHeaderColumn>
-<TableHeaderColumn
+            <TableHeaderColumn
                 filter={ {
                     type: 'NumberFilter',
                     delay: 1000,
@@ -93,6 +111,7 @@ export class DistrictPage extends Component {
                 }}
                 dataField="voter_score"
                 dataSort={true}
+                columnClassName={columnClassNameFormat}
             >
               Num Votes
             </TableHeaderColumn>
@@ -105,6 +124,7 @@ export class DistrictPage extends Component {
                     delay: 1000,
                     numberComparators: [ '=', '>', '<=' ]
                 }}
+                columnClassName={columnClassNameFormat}
             >
               Precinct
             </TableHeaderColumn>
@@ -116,9 +136,30 @@ export class DistrictPage extends Component {
                    delay: 1000,
                    numberComparators: [ '=', '>', '<=' ]
                }}
+               columnClassName={columnClassNameFormat}
             >
               Donor Score
             </TableHeaderColumn>
+              <TableHeaderColumn
+                  dataField="score_guess"
+                  dataSort={true}
+                  filter={ {
+                      type: 'NumberFilter',
+                      delay: 1000,
+                      numberComparators: [ '=', '>', '<=' ]
+                  }}
+                  columnClassName={columnClassNameFormat}
+              >
+                  Score Guess
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ { type: 'TextFilter', delay: 1000 } }
+                  dataField="PARTY"
+                  dataSort={true}
+                  columnClassName={columnClassNameFormat}
+              >
+                  PARTY
+              </TableHeaderColumn>
           </BootstrapTable>
       )
     }

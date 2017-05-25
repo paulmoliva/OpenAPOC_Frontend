@@ -91,7 +91,7 @@ export default connect(
 
 function districtsList() {
     let numbers = [];
-    for(let i = 1; i < 23; i++){
+    for(let i = 1; i < 41; i++){
         numbers.push(i);
     }
     return numbers.map(el => (<li><a href={`/district/${el}`}>District {el}</a></li>) )
