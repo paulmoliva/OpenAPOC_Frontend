@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import $ from 'jquery';
 
 
 export class DistrictPage extends Component {
@@ -16,7 +17,7 @@ export class DistrictPage extends Component {
   }
 
   render() {
-      const options = {
+      const chartOptions = {
           page: 0,  // which page you want to show as default
           sizePerPageList: [ {
               text: '50', value: 50
@@ -27,7 +28,7 @@ export class DistrictPage extends Component {
           } ], // you can change the dropdown list for size per page
           sizePerPage: 50,  // which size per page you want to locate as default
           pageStartIndex: 0, // where to start counting the pages
-          paginationSize: 9,  // the pagination bar size.
+          paginationSize: 19,  // the pagination bar size.
           prePage: 'Prev', // Previous page button text
           nextPage: 'Next', // Next page button text
           firstPage: 'First', // First page button text
@@ -39,7 +40,7 @@ export class DistrictPage extends Component {
           paginationShowsTotal: false,  // Accept bool or function
           paginationPosition: 'both',  // default is bottom, top and both is all available
           defaultSortName: 'precinct',  // default sort column name
-          defaultSortOrder: 'asc',  // default sort order
+          defaultSortOrder: 'desc',  // default sort order
           // hideSizePerPage: true > You can hide the dropdown for sizePerPage
           // alwaysShowAllBtns: true // Always show next and previous button
           // withFirstAndLast: false > Hide the going to First and Last page button
@@ -55,65 +56,62 @@ export class DistrictPage extends Component {
             // rowIdx is index of row
             // colIdx is index of column
             let color = '';
-            if(row.score_guess > 500){
+            if(row.party === 'D'){
                 color = 'blue';
-            } else if (row.score_guess < -500){
+            } else if (row.party === 'R'){
                 color = 'red';
             } else {
                 color = 'grey'
             }
             return color;
         }
+        const options = {1: "Filter blanks"};
       content = (
           <BootstrapTable
               data={this.props.voters.voters}
               hover={true}
               pagination={true}
-              options={options}
+              options={chartOptions}
               headerStyle={ { width: '100%' } }
               bodyStyle={ { width: '100%'} }
               exportCSV
           >
-            <TableHeaderColumn dataField="id" isKey={true}
-                               // columnClassName={columnClassNameFormat}
-                               dataAlign="center"
-                               dataSort={true}
-                               hidden>ID</TableHeaderColumn>
+            <TableHeaderColumn
+                dataField="VANID"
+                isKey={true}
+                // columnClassName={columnClassNameFormat}
+                dataAlign="center"
+                dataSort={true}
+                hidden
+                export={true}
+            >
+                ID
+            </TableHeaderColumn>
             <TableHeaderColumn
                 filter={ { type: 'TextFilter', delay: 1000 } }
                 dataField="full_name"
                 dataSort={true}
                 columnClassName={columnClassNameFormat}
+                export={false}
+                dataFormat={function(cell, row){
+                    return <a target="_blank" href={`/contributors/${row.VANID}`}>{cell.slice(0, 54)}</a>
+                }}
             >
               Name
             </TableHeaderColumn>
-            <TableHeaderColumn
-                filter={ { type: 'TextFilter', delay: 1000 } }
-                dataField="RESIDENCE_ADDRESS"
-                dataSort={true}
-                columnClassName={columnClassNameFormat}
-            >
-              RESIDENCE ADDRESS
-            </TableHeaderColumn>
-            <TableHeaderColumn
-                filter={ { type: 'TextFilter', delay: 1000 } }
-                dataField="RESIDENCE_ZIP"
-                dataSort={true}
-                columnClassName={columnClassNameFormat}
-            >
-              RESIDENCE ZIP
-            </TableHeaderColumn>
+
             <TableHeaderColumn
                 filter={ {
                     type: 'NumberFilter',
                     delay: 1000,
                     numberComparators: [ '=', '>', '<=' ]
                 }}
-                dataField="voter_score"
+                dataField="num_votes"
                 dataSort={true}
                 columnClassName={columnClassNameFormat}
+                export={false}
             >
-              Num Votes
+              # Votes
             </TableHeaderColumn>
 
             <TableHeaderColumn
@@ -125,18 +123,27 @@ export class DistrictPage extends Component {
                     numberComparators: [ '=', '>', '<=' ]
                 }}
                 columnClassName={columnClassNameFormat}
+                export={false}
             >
               Precinct
             </TableHeaderColumn>
             <TableHeaderColumn
-               dataField="score"
+               dataField="donor_score"
                dataSort={true}
                filter={ {
                    type: 'NumberFilter',
                    delay: 1000,
-                   numberComparators: [ '=', '>', '<=' ]
+                   numberComparators: [ '=', '>=', '<=' ]
                }}
                columnClassName={columnClassNameFormat}
+               filterValue={ (cell, row) => {
+                   if(row.donor_score === null){
+                       return false;
+                   } else {
+                       return row.donor_score
+                   }
+               } }
+               export={false}
             >
               Donor Score
             </TableHeaderColumn>
@@ -146,20 +153,84 @@ export class DistrictPage extends Component {
                   filter={ {
                       type: 'NumberFilter',
                       delay: 1000,
-                      numberComparators: [ '=', '>', '<=' ]
+                      numberComparators: [ '=', '>=', '<=' ]
                   }}
                   columnClassName={columnClassNameFormat}
+                  export={false}
               >
                   Score Guess
               </TableHeaderColumn>
               <TableHeaderColumn
+                  dataField="avg_contribution"
+                  dataSort={true}
+                  filter={ {
+                      type: 'NumberFilter',
+                      delay: 1000,
+                      numberComparators: [ '=', '>=', '<=' ]
+                  }}
+                  filterValue={ (cell, row) => {
+                      if(row.avg_contribution === 0){
+                          return false;
+                      } else {
+                          return row.avg_contribution
+                      }
+                  } }
+                  columnClassName={columnClassNameFormat}
+                  export={false}
+              >
+                  Avg Give
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  dataField="num_contributions"
+                  dataSort={true}
+                  filter={ {
+                      type: 'NumberFilter',
+                      delay: 1000,
+                      numberComparators: [ '=', '>=', '<=' ]
+                  }}
+                  columnClassName={columnClassNameFormat}
+                  export={false}
+              >
+                  # Contributions
+              </TableHeaderColumn>
+              <TableHeaderColumn
                   filter={ { type: 'TextFilter', delay: 1000 } }
-                  dataField="PARTY"
+                  dataField="party"
                   dataSort={true}
                   columnClassName={columnClassNameFormat}
+                  export={false}
               >
-                  PARTY
+                  Party
               </TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ {
+                      type: 'NumberFilter',
+                      delay: 1000,
+                      numberComparators: [ '=', '>=', '<=' ]
+                  }}
+                  dataField="gave_to_adp"
+                  dataSort={true}
+                  columnClassName={columnClassNameFormat}
+                  export={false}
+              >
+                  # ADP Gifts
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  dataField="PreferredPhone"
+                  columnClassName={columnClassNameFormat}
+                  filter={ { type: 'SelectFilter', options: options } }
+                  filterValue={ (cell, row) => {
+                      if (row.PreferredPhone === null) {
+                          return false;
+                      } else {
+                          return $('.select-filter').val();
+                      }
+                  }}
+                  export={false}
+              >
+                  Phone
+              </TableHeaderColumn>
+
           </BootstrapTable>
       )
     }

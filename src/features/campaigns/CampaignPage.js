@@ -5,6 +5,7 @@ import * as actions from './redux/actions';
 import { browserHistory, Link } from 'react-router'
 import {CampaignInfoBlock} from './';
 import LoadingSpinner from '../common/LoadingSpinner';
+import $ from 'jquery';
 
 
 
@@ -71,23 +72,16 @@ export class CampaignPage extends Component {
                 color = 'grey'
             }
             let add = '';
-            if (fieldValue === row.full_name) {
-                add = ' three link'
-            } else if (fieldValue === row.total_amount){
-                add = ' three'
-            } else if (fieldValue === row.contributor_score) {
-                add = ' three'
-            } else {
-                add = ' zero'
-            }
-            return color + add;
+
+            return color;
         }
+        const selectOptions = {1: "Filter blanks"};
         return (
             <div className="campaigns-campaign-page standardPage">
               <CampaignInfoBlock />
               <BootstrapTable
-                  headerStyle={ { width: '1100px' } }
-                  bodyStyle={ { width: '1100px' } }
+                  headerStyle={ { width: '100%' } }
+                  bodyStyle={ { width: '100%' } }
                   data={this.props.campaigns.contributions}
                   hover={true}
                   pagination={true}
@@ -98,11 +92,18 @@ export class CampaignPage extends Component {
                         return cell
                     }}
                     dataField="contributor_id" isKey={true}
+                    export={true}
                 hidden>
                     ID</TableHeaderColumn>
                 <TableHeaderColumn
-                    dataFormat={(cell, row) => <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>}
-                    filter={ { type: 'TextFilter', delay: 1000 } } columnClassName={columnClassNameFormat} dataField="full_name" dataSort={true}>Name</TableHeaderColumn>
+                    dataFormat={(cell, row) => <Link to={`/contributors/${row.van_id}`}>{cell}</Link>}
+                    filter={ { type: 'TextFilter', delay: 1000 } }
+                    columnClassName={columnClassNameFormat}
+                    dataField="full_name"
+                    dataSort={true}
+                >
+                    Name
+                </TableHeaderColumn>
                 <TableHeaderColumn
                     filter={ { type: 'NumberFilter', delay: 1000, numberComparators: ['=', '>', '<'] } }
                     columnClassName={columnClassNameFormat}
@@ -135,8 +136,34 @@ export class CampaignPage extends Component {
                         numberComparators: [ '=', '>', '<=' ]
                     }}
                 >
-                    Leans
+                    Donor Score
+                </TableHeaderColumn><TableHeaderColumn
+                    columnClassName={columnClassNameFormat}
+                    dataField="avg_contribution"
+                    dataSort={true}
+                    filter={ {
+                        type: 'NumberFilter',
+                        delay: 1000,
+                        numberComparators: [ '=', '>', '<=' ]
+                    }}
+                >
+                    Avg Contribution
                 </TableHeaderColumn>
+                  <TableHeaderColumn
+                      dataField="PreferredPhone"
+                      columnClassName={columnClassNameFormat}
+                      filter={ { type: 'SelectFilter', options: selectOptions } }
+                      filterValue={ (cell, row) => {
+                          if (row.PreferredPhone === '') {
+                              return false;
+                          } else {
+                              return $('.select-filter').val();
+                          }
+                      }}
+                      export={false}
+                  >
+                      Phone
+                  </TableHeaderColumn>
               </BootstrapTable>
             </div>
         );

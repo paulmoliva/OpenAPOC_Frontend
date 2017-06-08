@@ -21,7 +21,7 @@ export class ContributorPage extends Component {
     }
 
   render() {
-      if(this.props.contributors.contributions.length){
+      if(this.props.contributors.contributor){
         const options = {
           page: 0,  // which page you want to show as default
           sizePerPageList: [ {
@@ -78,7 +78,7 @@ export class ContributorPage extends Component {
         return (
             <div className="contributors-contributor-page standardPage">
               <ContributorInfoBlock contributors={this.props.contributors} actions={this.props.actions}/>
-            <BootstrapTable
+            {this.props.contributors.contributions.length ? <BootstrapTable
                 data={this.props.contributors.contributions}
                 hover={true}
                 pagination={true}
@@ -86,7 +86,7 @@ export class ContributorPage extends Component {
                 headerStyle={ { width: '100%' } }
                 bodyStyle={ { width: '100%' } }
             >
-              <TableHeaderColumn dataField="Result" isKey={true}
+              <TableHeaderColumn dataField="id" isKey={true}
                                  columnClassName={columnClassNameFormat}
                                  dataAlign="center"
                                  hidden>ID</TableHeaderColumn>
@@ -119,7 +119,20 @@ export class ContributorPage extends Component {
                       } else return '-'
                   }}
                   dataSort={true}>Campaign Leans</TableHeaderColumn>
-            </BootstrapTable>
+                <TableHeaderColumn
+                  columnClassName={columnClassNameFormat}
+                  dataField="Occupation"
+                  filter={ { type: 'TextFilter', delay: 1000 } }
+                  >Occupation
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                  columnClassName={columnClassNameFormat}
+                  dataField="Employer"
+                  filter={ { type: 'TextFilter', delay: 1000 } }
+                  >
+                    Employer
+                </TableHeaderColumn>
+            </BootstrapTable> : <p>No contributions founds.</p>}
             </div>
         )
       } else {

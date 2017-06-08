@@ -110,7 +110,7 @@ export class DefaultPage extends Component {
             // colIdx is index of column
             if (row.score > 1) {
                 return 'blue'
-            } else if (row.score < -1) {
+            } else if (row.donor_score < -1) {
                 return 'red'
             } else return 'grey'
         }
@@ -127,7 +127,7 @@ export class DefaultPage extends Component {
                 headerStyle={ { width: '900px' } }
                 bodyStyle={ { width: '850px', marginLeft: '25px' } }
             >
-              <TableHeaderColumn dataField="id" isKey={true}
+              <TableHeaderColumn dataField="van_id" isKey={true}
                                  columnClassName={columnClassNameFormat}
                                  dataAlign="center"
                                  hidden>ID</TableHeaderColumn>
@@ -138,13 +138,13 @@ export class DefaultPage extends Component {
                   filter={ { type: 'TextFilter', delay: 1000 } } dataField="full_name" columnClassName={columnClassNameFormat} dataSort={true}>Name</TableHeaderColumn>
               <TableHeaderColumn
                   columnClassName={columnClassNameFormat}
-                  dataField="score"
+                  dataField="donor_score"
                   filter={ {
                       type: 'NumberFilter',
                       delay: 1000,
                       numberComparators: [ '=', '>', '<=' ]
                   }}
-                  dataSort={true}>Lean Score</TableHeaderColumn>
+                  dataSort={true}>Donor Score</TableHeaderColumn>
             </BootstrapTable>
           )
     }
@@ -168,10 +168,10 @@ export class DefaultPage extends Component {
                             updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
                         >
                             {this.props.common.results.map(el => (
-                                <li style={{zIndex: 2, backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                                    <Link to={`/contributors/${el.id}`}>{el.full_name.slice(0,50)}</Link>
-                                    <p>Score: {el.score}</p>
-                                    <p>Total: {el.total}</p>
+                                <li style={{zIndex: 2, backgroundColor: el.donor_score > 1 ? 'rgba(0,0,250, 0.3)' : el.donor_score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
+                                    <Link to={`/contributors/${el.VANID}`}>{el.full_name.slice(0,50)}</Link>
+                                    <p>Score: {el.donor_score}</p>
+                                    <p>Total: {el.total_amount}</p>
                                 </li>
                             ))}
                         </Masonry>
