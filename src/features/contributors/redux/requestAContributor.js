@@ -21,7 +21,7 @@ export function requestAContributor(args = {}) {
       // doRequest is a sample which resolves promise in 20ms. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
       const doRequest = new Promise((resolve2, reject2) => {
-          fetch(`http://datashark.us-west-1.elasticbeanstalk.com/api/contributors/${args.id}`).then(function(response) {
+          fetch(`http://datashark2.us-west-1.elasticbeanstalk.com/api/contributors/${args.id}`).then(function(response) {
               return resolve2(response.json());
           }, () => reject2())
       });
