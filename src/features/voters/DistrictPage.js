@@ -236,6 +236,13 @@ export class DistrictPage extends Component {
     }
     return (
       <div className="voters-district-page">
+          <div
+            style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+          >
+              <strong>Export as </strong>
+              <input style={{margin: '6px'}} type="radio" value="phone"/>Phone
+              <input style={{margin: '6px'}} type="radio" value="mail"/>Mail
+          </div>
           {content}
       </div>
     );
