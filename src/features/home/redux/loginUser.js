@@ -23,7 +23,7 @@ export function loginUser(args = {}) {
       // doRequest is a sample which resolves promise in 20ms. You should replace it with your own logic.
       // See the real-word example at:  https://github.com/supnate/rekit/blob/master/src/features/home/redux/fetchRedditReactjsList.js
       const doRequest = new Promise((resolve2, reject2) => {
-          fetch(`http://127.0.0.1:5000/api/login?${$.param({id: args.id, name: args.name})}`).then(
+          fetch(`http://datashark.us-west-1.elasticbeanstalk.com/api/login?${$.param({id: args.id, name: args.name})}`).then(
           resp2 => {
             resolve2(resp2.json())
           },
