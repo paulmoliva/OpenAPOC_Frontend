@@ -9,6 +9,23 @@ export class ContributorInfoBlock extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  componentDidMount() {
+      this.props.actions.requestContributorActivistCodes({id: this.props.contributor_id});
+  }
+
+  activistCodesTableBody() {
+      const codes = this.props.contributors.activist_codes || [];
+      return codes.map( code => {
+          return (
+              <tr>
+                  <td>{code.ActivistCodeName}</td>
+                  <td>{code.ActivistCodeDescription}</td>
+                  <td>{code.DateCreated}</td>
+              </tr>
+          )
+      })
+  }
+
   render() {
     if(this.props.contributors){
       const the_contributor = this.props.contributors.contributor;
@@ -46,6 +63,14 @@ export class ContributorInfoBlock extends Component {
               frameborder="0" style={{border:0}}
               src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCqJ6Xp90xxiBHWmMKkZuiOEtK-fbTRZGo&q=${the_contributor.vAddress}+${the_contributor.Zip5}`} allowfullscreen>
           </iframe>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+                {this.activistCodesTableBody.bind(this)()}
+            </table>
         </div>
       );
     } else return <div/>

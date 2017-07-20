@@ -91,7 +91,7 @@ export class CampaignPage extends Component {
                     dataFormat={function(cell, row){
                         return cell
                     }}
-                    dataField="contributor_id" isKey={true}
+                    dataField="van_id" isKey={true}
                     export={true}
                 hidden>
                     ID</TableHeaderColumn>
@@ -101,6 +101,7 @@ export class CampaignPage extends Component {
                     columnClassName={columnClassNameFormat}
                     dataField="full_name"
                     dataSort={true}
+                    export={true}
                 >
                     Name
                 </TableHeaderColumn>
@@ -112,6 +113,7 @@ export class CampaignPage extends Component {
                     dataFormat={cell => {
                         return cell ? parseInt(cell) : null;
                     }}
+                    export={true}
                 >
                     Year
                 </TableHeaderColumn>
@@ -123,6 +125,7 @@ export class CampaignPage extends Component {
                        delay: 1000,
                        numberComparators: [ '=', '>', '<=' ]
                    }}
+                   export={true}
                 >
                    Amount
                </TableHeaderColumn>
@@ -135,6 +138,7 @@ export class CampaignPage extends Component {
                         delay: 1000,
                         numberComparators: [ '=', '>', '<=' ]
                     }}
+                    export={true}
                 >
                     Donor Score
                 </TableHeaderColumn><TableHeaderColumn
@@ -146,7 +150,8 @@ export class CampaignPage extends Component {
                         delay: 1000,
                         numberComparators: [ '=', '>', '<=' ]
                     }}
-                >
+                    export={true}
+              >
                     Avg Contribution
                 </TableHeaderColumn>
                   <TableHeaderColumn
@@ -160,9 +165,22 @@ export class CampaignPage extends Component {
                               return $('.select-filter').val();
                           }
                       }}
-                      export={false}
+                      export={true}
                   >
                       Phone
+                  </TableHeaderColumn>
+                  <TableHeaderColumn
+                      dataField="district"
+                      dataSort={true}
+                      columnClassName={columnClassNameFormat}
+                      filter={ {
+                          type: 'NumberFilter',
+                          delay: 1000,
+                          numberComparators: [ '=', '>', '<=' ]
+                      }}
+                      export={true}
+                  >
+                      District
                   </TableHeaderColumn>
               </BootstrapTable>
             </div>

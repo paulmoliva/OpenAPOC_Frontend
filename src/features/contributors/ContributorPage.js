@@ -77,11 +77,12 @@ export class ContributorPage extends Component {
           const leanTypes = {l: 'Left', r: 'Right'};
         return (
             <div className="contributors-contributor-page standardPage">
-              <ContributorInfoBlock contributors={this.props.contributors} actions={this.props.actions}/>
-            {this.props.contributors.contributions.length ? <BootstrapTable
+              <ContributorInfoBlock contributor_id={this.props.params.id} contributors={this.props.contributors} actions={this.props.actions}/>
+            {this.props.contributors.contributions.length && this.props.contributors.contributions.every( con => Boolean(con.id))
+                ? <BootstrapTable
                 data={this.props.contributors.contributions}
                 hover={true}
-                pagination={true}
+                // pagination={true}
                 options={options}
                 headerStyle={ { width: '100%' } }
                 bodyStyle={ { width: '100%' } }

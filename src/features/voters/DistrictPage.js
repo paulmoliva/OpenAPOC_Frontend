@@ -12,13 +12,28 @@ export class DistrictPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  constructor(props) {
+      super(props);
+      this.state = {
+          exportType: 'phone'
+      };
+      this.handleExportChange = this.handleExportChange.bind(this);
+  }
+
   componentDidMount() {
     this.props.actions.requestDistrictVoters({district: this.props.router.params.district_id })
   }
 
+  handleExportChange(e) {
+      debugger;
+    this.setState({
+        exportType: e.target.value
+    });
+  }
+
   render() {
       const chartOptions = {
-          page: 0,  // which page you want to show as default
+          // page: 0,  // which page you want to show as default
           sizePerPageList: [ {
               text: '50', value: 50
           }, {
@@ -75,6 +90,7 @@ export class DistrictPage extends Component {
               headerStyle={ { width: '100%' } }
               bodyStyle={ { width: '100%'} }
               exportCSV
+              csvFileName={`district-${this.props.router.params.district_id}`}
           >
             <TableHeaderColumn
                 dataField="VANID"
@@ -92,7 +108,7 @@ export class DistrictPage extends Component {
                 dataField="full_name"
                 dataSort={true}
                 columnClassName={columnClassNameFormat}
-                export={false}
+                export={true}
                 dataFormat={function(cell, row){
                     return <a target="_blank" href={`/contributors/${row.VANID}`}>{cell.slice(0, 54)}</a>
                 }}
@@ -109,7 +125,7 @@ export class DistrictPage extends Component {
                 dataField="num_votes"
                 dataSort={true}
                 columnClassName={columnClassNameFormat}
-                export={false}
+                export={true}
             >
               # Votes
             </TableHeaderColumn>
@@ -123,7 +139,7 @@ export class DistrictPage extends Component {
                     numberComparators: [ '=', '>', '<=' ]
                 }}
                 columnClassName={columnClassNameFormat}
-                export={false}
+                export={true}
             >
               Precinct
             </TableHeaderColumn>
@@ -156,7 +172,7 @@ export class DistrictPage extends Component {
                       numberComparators: [ '=', '>=', '<=' ]
                   }}
                   columnClassName={columnClassNameFormat}
-                  export={false}
+                  export={true}
               >
                   Score Guess
               </TableHeaderColumn>
@@ -176,7 +192,7 @@ export class DistrictPage extends Component {
                       }
                   } }
                   columnClassName={columnClassNameFormat}
-                  export={false}
+                  export={true}
               >
                   Avg Give
               </TableHeaderColumn>
@@ -189,7 +205,7 @@ export class DistrictPage extends Component {
                       numberComparators: [ '=', '>=', '<=' ]
                   }}
                   columnClassName={columnClassNameFormat}
-                  export={false}
+                  export={true}
               >
                   # Contributions
               </TableHeaderColumn>
@@ -198,7 +214,7 @@ export class DistrictPage extends Component {
                   dataField="party"
                   dataSort={true}
                   columnClassName={columnClassNameFormat}
-                  export={false}
+                  export={true}
               >
                   Party
               </TableHeaderColumn>
@@ -211,7 +227,7 @@ export class DistrictPage extends Component {
                   dataField="gave_to_adp"
                   dataSort={true}
                   columnClassName={columnClassNameFormat}
-                  export={false}
+                  export={true}
               >
                   # ADP Gifts
               </TableHeaderColumn>
@@ -226,7 +242,7 @@ export class DistrictPage extends Component {
                           return $('.select-filter').val();
                       }
                   }}
-                  export={false}
+                  export={true}
               >
                   Phone
               </TableHeaderColumn>
@@ -240,8 +256,8 @@ export class DistrictPage extends Component {
             style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
           >
               <strong>Export as </strong>
-              <input style={{margin: '6px'}} type="radio" value="phone"/>Phone
-              <input style={{margin: '6px'}} type="radio" value="mail"/>Mail
+              <input style={{margin: '6px'}} onChange={this.handleExportChange} checked={Boolean(this.state.exportType === 'phone')} type="radio" value="phone"/>Phone
+              <input style={{margin: '6px'}} disabled={true} onChange={this.handleExportChange} checked={Boolean(this.state.exportType === 'mail')} type="radio" value="mail"/>Mail
           </div>
           {content}
       </div>
