@@ -102,6 +102,18 @@ export class DefaultPage extends Component {
                     } else return '-'
                 }}
             dataSort={true}>Campaign Leans</TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ { type: 'TextFilter', delay: 1000 } } dataField="election_type" columnClassName={columnClassNameFormat} dataSort={true}>
+                  Election Type
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ { type: 'TextFilter', delay: 1000 } } dataField="muni" columnClassName={columnClassNameFormat} dataSort={true}>
+                  Muni
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ { type: 'TextFilter', delay: 1000 } } dataField="office" columnClassName={columnClassNameFormat} dataSort={true}>
+                  Office
+              </TableHeaderColumn>
           </BootstrapTable>
       )
     } else

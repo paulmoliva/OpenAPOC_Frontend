@@ -1,14 +1,18 @@
 @import '../../styles/mixins.less';
 
-  .row {
-    div {
-      display: flex;
-      flex-direction: column;
-      .col-md-6 {
-        width: 100%
-      }
+.row {
+  div {
+    display: flex;
+    flex-direction: column;
+    .col-md-6 {
+      width: 100%
     }
   }
+}
+
+th, td {
+  width: 20%;
+}
 
 .link {
   color: #2893c3;
@@ -26,11 +30,4 @@
   background-color: rgba(77,77,77, 0.3);
 }
 
-.half {
-  width: 451px;
-  box-sizing: border-box;
-}
-.small {
-  width: 250px !important;
-  box-sizing: border-box;
-}
+
