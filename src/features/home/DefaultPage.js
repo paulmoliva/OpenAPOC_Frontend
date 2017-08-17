@@ -16,7 +16,7 @@ export class DefaultPage extends Component {
     const { counterPlusOne, counterMinusOne, resetCounter, fetchRedditReactjsList } = this.props.actions;
     return (
       <div className="home-default-page standardPage panel panel-default">
-        <h1 className="panel-heading">Open APOC Portal Version 0.11</h1>
+        <h1 className="panel-heading">DataShark 1.0 ℹ</h1>
         <div className="panel-body">
             <p>The data used in this version was calculated using a deprecated version of the scoring algorithm and is not guaranteed to be 100% accurate. Use at your own risk.</p>
             <p>Version 1 will contain updated campaign scores and lean scores.</p>
@@ -36,7 +36,6 @@ export class DefaultPage extends Component {
                 `)}
               </li>
             </ul>
-            <p>Since this is an early release, voter registration data is not yet available. There are also probably a few bugs. If the page starts acting weird just refresh the page. We're all friends here.</p>
         </div>
       </div>
     );

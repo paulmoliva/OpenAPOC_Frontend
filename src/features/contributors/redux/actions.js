@@ -2,3 +2,4 @@ export { requestAContributor, dismissRequestAContributorError } from './requestA
 export { requestContributors, dismissRequestContributorsError } from './requestContributors';
 export { clearContributors } from './clearContributors';
 export { requestContributorActivistCodes, dismissRequestContributorActivistCodesError } from './requestContributorActivistCodes';
+export { requestContributorSurveyResponses, dismissRequestContributorSurveyResponsesError } from './requestContributorSurveyResponses';

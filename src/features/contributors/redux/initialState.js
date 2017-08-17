@@ -15,6 +15,8 @@ const initialState = {
   requestContributorsError: null,
   requestContributorActivistCodesPending: false,
   requestContributorActivistCodesError: null,
+  requestContributorSurveyResponsesPending: false,
+  requestContributorSurveyResponsesError: null,
 };
 
 export default initialState;

@@ -11,19 +11,48 @@ export class ContributorInfoBlock extends Component {
 
   componentDidMount() {
       this.props.actions.requestContributorActivistCodes({id: this.props.contributor_id});
+      this.props.actions.requestContributorSurveyResponses({id: this.props.contributor_id});
   }
 
   activistCodesTableBody() {
       const codes = this.props.contributors.activist_codes || [];
-      return codes.map( code => {
+      if(codes) {
+          return codes.map( code => {
+              return (
+                  <tr>
+                      <td>{code.ActivistCodeName}</td>
+                      <td>{code.ActivistCodeDescription}</td>
+                      <td>{code.DateCreated}</td>
+                  </tr>
+              )
+          })
+      } else return <strong>Loading Activist Codes</strong>
+
+  }
+
+  surveyResponsesTableBody() {
+      const codes = this.props.contributors.surveyResponses || [];
+      const responsesBody = codes.map( code => {
           return (
-              <tr>
-                  <td>{code.ActivistCodeName}</td>
-                  <td>{code.ActivistCodeDescription}</td>
-                  <td>{code.DateCreated}</td>
-              </tr>
+                  <tr>
+                      <td>{code.SurveyQuestionLongName}</td>
+                      <td>{code.SurveyResponseName}</td>
+                      <td>{code.DateCreated}</td>
+                  </tr>
           )
-      })
+      });
+      if(this.props.contributors.surveyResponses) {
+          return (
+              <table>
+                  <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Date</th>
+                  </tr>
+                  {responsesBody}
+              </table>
+          )
+      } else return <strong>Loading Survey Responses</strong>
   }
 
   render() {
@@ -71,6 +100,10 @@ export class ContributorInfoBlock extends Component {
                 </tr>
                 {this.activistCodesTableBody.bind(this)()}
             </table>
+            <br />
+            <br />
+            {this.surveyResponsesTableBody.bind(this)()}
+
         </div>
       );
     } else return <div/>
