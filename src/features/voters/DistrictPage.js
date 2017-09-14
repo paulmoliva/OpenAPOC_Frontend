@@ -242,6 +242,9 @@ export class DistrictPage extends Component {
                           return $('.select-filter').val();
                       }
                   }}
+                  dataFormat={function(cell, row){
+                      return 'Not Avaiable!'
+                  }}
                   export={true}
               >
                   Phone

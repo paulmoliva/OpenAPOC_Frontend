@@ -10,8 +10,8 @@ export class ContributorInfoBlock extends Component {
   };
 
   componentDidMount() {
-      this.props.actions.requestContributorActivistCodes({id: this.props.contributor_id});
-      this.props.actions.requestContributorSurveyResponses({id: this.props.contributor_id});
+      // this.props.actions.requestContributorActivistCodes({id: this.props.contributor_id});
+      // this.props.actions.requestContributorSurveyResponses({id: this.props.contributor_id});
   }
 
   activistCodesTableBody() {
@@ -20,9 +20,9 @@ export class ContributorInfoBlock extends Component {
           return codes.map( code => {
               return (
                   <tr>
-                      <td>{code.ActivistCodeName}</td>
-                      <td>{code.ActivistCodeDescription}</td>
-                      <td>{code.DateCreated}</td>
+                      <td>Not Available!</td>
+                      <td>Not Available!</td>
+                      <td>Not Available!</td>
                   </tr>
               )
           })
@@ -35,24 +35,22 @@ export class ContributorInfoBlock extends Component {
       const responsesBody = codes.map( code => {
           return (
                   <tr>
-                      <td>{code.SurveyQuestionLongName}</td>
-                      <td>{code.SurveyResponseName}</td>
-                      <td>{code.DateCreated}</td>
+                      <td>Not Available!</td>
+                      <td>Not Available!</td>
+                      <td>Not Available!</td>
                   </tr>
           )
       });
-      if(this.props.contributors.surveyResponses) {
-          return (
-              <table>
-                  <tr>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Date</th>
-                  </tr>
-                  {responsesBody}
-              </table>
-          )
-      } else return <strong>Loading Survey Responses</strong>
+      return (
+          <table>
+              <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Date</th>
+              </tr>
+              {responsesBody}
+          </table>
+      )
   }
 
   render() {
@@ -79,8 +77,8 @@ export class ContributorInfoBlock extends Component {
             <td> ${the_contributor.avg_contribution}</td>
             <td> ${the_contributor.score_guess}</td>
             <td> {the_contributor.num_contributions}</td>
-            <td> {the_contributor.PreferredPhone}</td>
-            <td> {the_contributor.PreferredEmail}</td>
+            <td> Not Available!</td>
+            <td> Not Available!</td>
             <td> {the_contributor.party}</td>
           </tr>
           </table>

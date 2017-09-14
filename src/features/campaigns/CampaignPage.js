@@ -165,7 +165,10 @@ export class CampaignPage extends Component {
                               return $('.select-filter').val();
                           }
                       }}
-                      export={true}
+                      dataFormat={cell => {
+                          return 'Not available!';
+                      }}
+                      export={false}
                   >
                       Phone
                   </TableHeaderColumn>
