@@ -150,7 +150,7 @@ export class DefaultPage extends Component {
     }
     return (
       <div className="contributors-default-page standardPage form-group">
-        {!this.state.submitted ? (<form onSubmit={this.handleSearchSubmit}>
+        {!this.state.submitted ? (<form onSubmit={e => e.preventDefault()}>
             <input className="bigSearch form-control"
                    id="focusedInput"
                    onKeyUp={this.searchContributors}
@@ -168,10 +168,16 @@ export class DefaultPage extends Component {
                             updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
                         >
                             {this.props.common.results.map(el => (
-                                <li style={{zIndex: 2, backgroundColor: el.donor_score > 1 ? 'rgba(0,0,250, 0.3)' : el.donor_score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'}}>
-                                    <Link to={`/contributors/${el.VANID}`}>{el.full_name.slice(0,50)}</Link>
-                                    <p>Score: {el.donor_score}</p>
-                                    <p>Total: {el.total_amount}</p>
+                                <li
+                                  style=
+                                    {{
+                                      zIndex: 2,
+                                      backgroundColor: el.score > 1 ? 'rgba(0,0,250, 0.3)' : el.score < -1 ? 'rgba(250,0,0,0.3)': 'rgba(0,0,0,0.3)'
+                                    }}
+                                >
+                                    <Link to={`/contributors/${el.id}`}>{el.full_name.slice(0,50)}</Link>
+                                    <p>Score: {el.score}</p>
+                                    <p>Total: {el.total}</p>
                                 </li>
                             ))}
                         </Masonry>

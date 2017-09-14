@@ -66,8 +66,7 @@ export class ContributorInfoBlock extends Component {
           <th>Avg Gift</th>
           <th>Lifetime Guess</th>
           <th># Contributions</th>
-          <th>Phone</th>
-          <th>Email</th>
+
           <th>Party</th>
           </tr>
           <tr>
@@ -77,8 +76,7 @@ export class ContributorInfoBlock extends Component {
             <td> ${the_contributor.avg_contribution}</td>
             <td> ${the_contributor.score_guess}</td>
             <td> {the_contributor.num_contributions}</td>
-            <td> Not Available!</td>
-            <td> Not Available!</td>
+
             <td> {the_contributor.party}</td>
           </tr>
           </table>
@@ -90,18 +88,6 @@ export class ContributorInfoBlock extends Component {
               frameborder="0" style={{border:0}}
               src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCqJ6Xp90xxiBHWmMKkZuiOEtK-fbTRZGo&q=${the_contributor.vAddress}+${the_contributor.Zip5}`} allowfullscreen>
           </iframe>
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                </tr>
-                {this.activistCodesTableBody.bind(this)()}
-            </table>
-            <br />
-            <br />
-            {this.surveyResponsesTableBody.bind(this)()}
-
         </div>
       );
     } else return <div/>

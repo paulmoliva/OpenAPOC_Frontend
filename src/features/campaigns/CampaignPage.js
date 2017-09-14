@@ -86,7 +86,7 @@ export class CampaignPage extends Component {
                   hover={true}
                   pagination={true}
                   options={options}
-              exportCSV>
+              >
                 <TableHeaderColumn
                     dataFormat={function(cell, row){
                         return cell
