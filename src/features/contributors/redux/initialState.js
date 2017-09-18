@@ -9,6 +9,7 @@ const initialState = {
   contributor: null,
   contributors: null,
   contributions: [],
+  loading: true,
   requestAContributorPending: false,
   requestAContributorError: null,
   requestContributorsPending: false,

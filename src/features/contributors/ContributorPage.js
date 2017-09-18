@@ -21,7 +21,7 @@ export class ContributorPage extends Component {
     }
 
   render() {
-      if(this.props.contributors.contributor){
+      if(!this.props.contributors.loading){
         const options = {
           page: 0,  // which page you want to show as default
           sizePerPageList: [ {

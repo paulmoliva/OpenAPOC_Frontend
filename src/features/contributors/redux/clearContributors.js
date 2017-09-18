@@ -10,14 +10,15 @@ export function clearContributors() {
 
 export function reducer(state, action) {
   switch (action.type) {
-    case CONTRIBUTORS_CLEAR_CONTRIBUTORS:
-      return {
-        contributor: [],
-        contributions: [],
-        ...state,
-      };
+  case CONTRIBUTORS_CLEAR_CONTRIBUTORS:
+    return {
+      contributor: [],
+      contributions: [],
+      loading: false,
+      ...state,
+    };
 
-    default:
-      return state;
+  default:
+    return state;
   }
 }

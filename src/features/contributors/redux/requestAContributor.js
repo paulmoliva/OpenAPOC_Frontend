@@ -74,6 +74,7 @@ export function reducer(state, action) {
         ...state,
         contributor: action.data.contributor,
         contributions: action.data.contributions,
+        loading: false,
         requestAContributorPending: false,
         requestAContributorError: null,
       };
