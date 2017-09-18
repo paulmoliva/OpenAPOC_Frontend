@@ -89,7 +89,7 @@ export class DistrictPage extends Component {
               options={chartOptions}
               headerStyle={ { width: '100%' } }
               bodyStyle={ { width: '100%'} }
-
+              exportCSV
               csvFileName={`district-${this.props.router.params.district_id}`}
           >
             <TableHeaderColumn
@@ -218,11 +218,47 @@ export class DistrictPage extends Component {
               >
                   Party
               </TableHeaderColumn>
+              <TableHeaderColumn
+                  filter={ {
+                      type: 'NumberFilter',
+                      delay: 1000,
+                      numberComparators: [ '=', '>=', '<=' ]
+                  }}
+                  dataField="gave_to_adp"
+                  dataSort={true}
+                  columnClassName={columnClassNameFormat}
+                  export={true}
+              >
+                  # ADP Gifts
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                  dataField="PreferredPhone"
+                  columnClassName={columnClassNameFormat}
+                  filter={ { type: 'SelectFilter', options: options } }
+                  filterValue={ (cell, row) => {
+                      if (row.PreferredPhone === null) {
+                          return false;
+                      } else {
+                          return $('.select-filter').val();
+                      }
+                  }}
+                  export={true}
+              >
+                  Phone
+              </TableHeaderColumn>
+
           </BootstrapTable>
       )
     }
     return (
       <div className="voters-district-page">
+          <div
+            style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+          >
+              <strong>Export as </strong>
+              <input style={{margin: '6px'}} onChange={this.handleExportChange} checked={Boolean(this.state.exportType === 'phone')} type="radio" value="phone"/>Phone
+              <input style={{margin: '6px'}} disabled={true} onChange={this.handleExportChange} checked={Boolean(this.state.exportType === 'mail')} type="radio" value="mail"/>Mail
+          </div>
           {content}
       </div>
     );

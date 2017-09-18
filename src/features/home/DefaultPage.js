@@ -16,11 +16,11 @@ export class DefaultPage extends Component {
     const { counterPlusOne, counterMinusOne, resetCounter, fetchRedditReactjsList } = this.props.actions;
     return (
       <div className="home-default-page standardPage panel panel-default">
-        <h1 className="panel-heading">DataShark 1.0 ℹ</h1>
+        <h1 className="panel-heading">Open APOC 1.0 ℹ</h1>
         <div className="panel-body">
             <p>The data used in this version was calculated using a deprecated version of the scoring algorithm and is not guaranteed to be 100% accurate. Use at your own risk.</p>
             <p>Version 1 will contain updated campaign scores and lean scores.</p>
-            <p>The v0.11 [DEPRECATED] scoring algorithm:</p>
+            <p>The v1.0 scoring algorithm:</p>
             <h3>Contributor Score</h3>
             <ul>
               <li>( SUM($ contributed to lefty candidates) - SUM($ contributed to righty candidates) )</li>

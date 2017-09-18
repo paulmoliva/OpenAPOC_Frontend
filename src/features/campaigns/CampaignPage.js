@@ -96,7 +96,15 @@ export class CampaignPage extends Component {
                 hidden>
                     ID</TableHeaderColumn>
                 <TableHeaderColumn
-                    dataFormat={(cell, row) => <Link to={`/contributors/${row.van_id}`}>{cell}</Link>}
+                    dataFormat={
+                      (cell, row) => {
+                        if(row.contributor_id)
+                          return <Link to={`/contributors/${row.contributor_id}`}>{cell}</Link>;
+                        else {
+                          return {cell}
+                        }
+                      }
+                  }
                     filter={ { type: 'TextFilter', delay: 1000 } }
                     columnClassName={columnClassNameFormat}
                     dataField="full_name"
