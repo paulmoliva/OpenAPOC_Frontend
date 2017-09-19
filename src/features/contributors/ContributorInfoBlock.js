@@ -86,8 +86,6 @@ export class ContributorInfoBlock extends Component {
           <th>Total Amount</th>
           <th>Avg Gift</th>
           <th># Contributions</th>
-
-          <th>Party</th>
           </tr>
           <tr>
             <td> {the_contributor.full_name}</td>
@@ -95,8 +93,6 @@ export class ContributorInfoBlock extends Component {
             <td> ${the_contributor.total}</td>
             <td> ${the_contributor.avg_donation}</td>
             <td> {the_contributor.count}</td>
-
-            <td> {the_contributor.party}</td>
           </tr>
           </table>
           <iframe src={`https://duckduckgo.com/search.html?prefill=${the_contributor.full_name} Alaska`} style={{overflow:'hidden',margin:'0',padding:'6px',width:'420px',height:"52px"}} frameborder="0"></iframe>
